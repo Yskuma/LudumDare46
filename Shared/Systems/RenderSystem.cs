@@ -32,25 +32,6 @@ namespace LudumDare46.Shared.Systems
         {
             _spriteBatch.Begin(transformMatrix: _viewportAdapter.GetScaleMatrix(), sortMode: SpriteSortMode.FrontToBack);
 
-            Random r = new Random(1983);
-
-            for(int x = 0; x < 64; x++)
-            {
-                for (int y = 0; y < 40; y++)
-                {
-                    switch (r.Next(2))
-                    {
-                        case 0:
-                            _spriteBatch.Draw(_textureManager.Dirt1, new Rectangle(x*16, y*16, 16, 16), Color.White);
-                            break;
-                        case 1:
-                            _spriteBatch.Draw(_textureManager.Dirt2, new Rectangle(x*16, y*16, 16, 16), Color.White);
-                            break;
-                    }
-                }
-
-            }
-
             foreach (var entity in ActiveEntities)
             {
                 var transform = _transformMapper.Get(entity);
@@ -59,8 +40,6 @@ namespace LudumDare46.Shared.Systems
             }
 
             _spriteBatch.End();
-
-           
         }
 
         public override void Initialize(IComponentMapperService mapperService)
