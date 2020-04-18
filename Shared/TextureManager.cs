@@ -16,6 +16,7 @@ namespace LudumDare46.Shared
         }
 
         public Texture2D RoguelikeSheet { get; private set; }
+        public Texture2D RoguelikeCity { get; set; }
 
         public TextureRegion2D Dirt1 { get; private set; }
         public TextureRegion2D Dirt2 { get; private set; }
@@ -30,6 +31,7 @@ namespace LudumDare46.Shared
         private void Load()
         {
             RoguelikeSheet = _contentManager.Load<Texture2D>("roguelikeSheet_transparent");
+            RoguelikeCity = _contentManager.Load<Texture2D>("roguelikeCity_transparent");
 
             Dirt1 = new TextureRegion2D(RoguelikeSheet, 6 * 17, 0 * 17, 16, 16);
             Dirt2 = new TextureRegion2D(RoguelikeSheet, 6 * 17, 1 * 17, 16, 16);
@@ -38,7 +40,7 @@ namespace LudumDare46.Shared
             RoofEdge = new TextureRegion2D(RoguelikeSheet, 13 * 17, 17 * 17, 16, 16);
             RoofTile = new TextureRegion2D(RoguelikeSheet, 14 * 17, 17 * 17, 16, 16);
 
-            Anvil = new TextureRegion2D(RoguelikeSheet, 15 * 17, 0 * 17, 16, 16);
+
         }
 
         private void Unload()

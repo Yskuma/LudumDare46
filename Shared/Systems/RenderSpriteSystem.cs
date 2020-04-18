@@ -10,7 +10,7 @@ using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.Systems
 {
-    internal class RenderSystem : EntityDrawSystem
+    internal class RenderSpriteSystem : EntityDrawSystem
     {
         private GraphicsDevice _graphicsDevice;
         private readonly SpriteBatch _spriteBatch;
@@ -19,7 +19,7 @@ namespace LudumDare46.Shared.Systems
         private readonly ViewportAdapter _viewportAdapter;
         private TextureManager _textureManager;
 
-        public RenderSystem(GraphicsDevice graphicsDevice, ViewportAdapter viewportAdapter, TextureManager textureManager)
+        public RenderSpriteSystem(GraphicsDevice graphicsDevice, ViewportAdapter viewportAdapter, TextureManager textureManager)
             : base(Aspect.All(typeof(Sprite), typeof(Transform2)))
         {
             _graphicsDevice = graphicsDevice;

@@ -12,7 +12,7 @@ namespace LudumDare46
     {
         private Texture2D _blackRectangle;
 
-        private BoxingViewportAdapter _boxingViewportAdapter;
+        private ViewportAdapter _boxingViewportAdapter;
 
         private World _currentLevel;
         private readonly GraphicsDeviceManager _graphics;
@@ -44,8 +44,9 @@ namespace LudumDare46
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _boxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 1024, 640);
+            //_boxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 1024, 640);
 
+            _boxingViewportAdapter = new DefaultViewportAdapter(GraphicsDevice);
             _graphics.PreferredBackBufferHeight = 640;
             _graphics.PreferredBackBufferWidth = 1024;
             _graphics.ApplyChanges();
@@ -54,7 +55,7 @@ namespace LudumDare46
 
             base.Initialize();
 
-            _currentLevel = new Level01Factory().Build(_graphics, _textureManager, _boxingViewportAdapter);
+            _currentLevel = new Level01Factory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);
         }
 
         protected override void LoadContent()
@@ -63,7 +64,7 @@ namespace LudumDare46
             _textureManager = new TextureManager(Content);
 
             _blackRectangle = new Texture2D(GraphicsDevice, 1, 1);
-            _blackRectangle.SetData(new[] {Color.Black});
+            _blackRectangle.SetData(new[] {Color.Red});
 
             // TODO: use this.Content to load your game content here
         }

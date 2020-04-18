@@ -10,8 +10,36 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\bin\Debug\netcoreapp3.0\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Level01.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Level01.tmx
+
+#begin roguelikeCity_tiles.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:roguelikeCity_tiles.tsx
+
+#begin roguelikeCity_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:roguelikeCity_transparent.png
+
+#begin roguelikeSheet_tiles.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:roguelikeSheet_tiles.tsx
 
 #begin roguelikeSheet_transparent.png
 /importer:TextureImporter
