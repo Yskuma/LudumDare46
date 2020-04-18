@@ -40,12 +40,14 @@ namespace LudumDare46.Levels.Level01
             graphicsDevice.SetRenderTarget(tex);
             var spriteBatch = new SpriteBatch(graphicsDevice);
 
-            Dictionary<char, TextureRegion2D> map = new Dictionary<char, TextureRegion2D>();
+            Dictionary<char, TextureRegion2D> map = new Dictionary<char, TextureRegion2D>
+            {
+                {'.', textureManager.Dirt1},
+                {',', textureManager.Dirt2},
+                {'*', textureManager.RoofTile},
+                {'|', textureManager.RoofEdge}
+            };
 
-            map.Add('.', textureManager.Dirt1);
-            map.Add(',', textureManager.Dirt2);
-            map.Add('*', textureManager.RoofTile);
-            map.Add('|', textureManager.RoofEdge);
 
             spriteBatch.Begin();
 
