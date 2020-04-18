@@ -34,9 +34,9 @@ namespace LudumDare46.Shared.Systems
 
             Random r = new Random(1983);
 
-            for(int x = 0; x < 32; x++)
+            for(int x = 0; x < 64; x++)
             {
-                for (int y = 0; y < 20; y++)
+                for (int y = 0; y < 40; y++)
                 {
                     switch (r.Next(2))
                     {

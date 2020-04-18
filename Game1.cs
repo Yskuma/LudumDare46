@@ -44,10 +44,10 @@ namespace LudumDare46
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _boxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 512, 320);
+            _boxingViewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 1024, 640);
 
-            _graphics.PreferredBackBufferHeight = 320;
-            _graphics.PreferredBackBufferWidth = 512;
+            _graphics.PreferredBackBufferHeight = 640;
+            _graphics.PreferredBackBufferWidth = 1024;
             _graphics.ApplyChanges();
 
             Window.AllowUserResizing = true;
