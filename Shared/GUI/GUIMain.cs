@@ -9,6 +9,9 @@ using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Gui.Controls;
 using MonoGame.Extended.Gui.Markup;
+using MonoGame.Extended.Gui.Serialization;
+using MonoGame.Extended.Sprites;
+using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.GUI
@@ -19,15 +22,17 @@ namespace LudumDare46.Shared.GUI
         private readonly ViewportAdapter _defaultViewportAdapter;
         private readonly GuiSpriteBatchRenderer _guiSpriteBatchRenderer;
         private readonly ContentManager _contentManager;
+        private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
 
         public GUIMain(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager)
+            ContentManager contentManager, TextureManager textureManager)
         {
             _graphicsDeviceManager = graphics;
             _defaultViewportAdapter = viewport;
             _guiSpriteBatchRenderer = guiRenderer;
             _contentManager = contentManager;
+            _textureManager = textureManager;
         }
 
         public void LoadContent()
@@ -49,44 +54,96 @@ namespace LudumDare46.Shared.GUI
             //textBox.CaretIndexChanged += (sender, args) =>
             //    statusLabel.Content = $"Ln {textBox.LineIndex + 1}, Ch {textBox.CaretIndex + 1}";
 
-            var demoScreen = new Screen
-            {
-                Content = new DockPanel
+            var Screen =
+                new Screen
                 {
-                    LastChildFill = true,
-                    Items =
+                    Content = new DockPanel
                     {
-                        new ContentControl
+                        Name = "DemoList",
+                        AttachedProperties = {{DockPanel.DockProperty, Dock.Left}},
+                        VerticalAlignment = VerticalAlignment.Stretch,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        BackgroundColor = new Color(30, 30, 30),
+                        LastChildFill = true,
+                        Items =
                         {
-                            Name = "Content",
-                            BackgroundColor = new Color(30, 30, 30),
-                            AttachedProperties = {{DockPanel.DockProperty, Dock.Left}},
-                            HorizontalAlignment = HorizontalAlignment.Left,
-                            Content =
-                                new Label()
+                            new StackPanel()
+                            {
+                                Items =
                                 {
-                                    Content = "Build Menu",
-                                    VerticalTextAlignment = VerticalAlignment.Top,
-                                    HorizontalTextAlignment = HorizontalAlignment.Centre
+                                    new Label("Build Menu")
+                                    {
+                                        Content = "Build Menu",
+                                        Margin = 5,
+                                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                                        VerticalAlignment = VerticalAlignment.Top,
+                                        HorizontalTextAlignment = HorizontalAlignment.Centre,
+                                        VerticalTextAlignment = VerticalAlignment.Top
+                                    },
+
+                                    new UniformGrid
+                                    {
+                                        
+                                        Columns = 3,
+                                        
+                                        Items =
+                                        {
+                                            new Button
+                                            {
+                                                Size = new Size(64,
+                                                    64),
+                                                Margin = 5,
+
+                                                HorizontalAlignment = HorizontalAlignment.Left,
+                                                VerticalAlignment = VerticalAlignment.Top
+                                            },
+                                            new Button
+                                            {
+                                                Size = new Size(64,
+                                                    64),
+                                                Margin = 5,
+                                                HorizontalAlignment = HorizontalAlignment.Left,
+                                                VerticalAlignment = VerticalAlignment.Top
+                                            },
+                                            new Button
+                                            {
+                                                Size = new Size(64,
+                                                    64),
+                                                Margin = 5,
+                                                HorizontalAlignment = HorizontalAlignment.Left,
+                                                VerticalAlignment = VerticalAlignment.Top
+                                            },
+                                            new Button
+                                            {
+                                                Size = new Size(64,
+                                                    64),
+                                                Margin = 5,
+                                                HorizontalAlignment = HorizontalAlignment.Left,
+                                                VerticalAlignment = VerticalAlignment.Top
+                                            }
+                                        }
+                                    }
                                 }
-                            
+                            }
                         }
                     }
-                }
+                };
+
+            _guiSystem = new GuiSystem(_defaultViewportAdapter, _guiSpriteBatchRenderer)
+            {
+                ActiveScreen = Screen
             };
 
-            _guiSystem = new GuiSystem(_defaultViewportAdapter, _guiSpriteBatchRenderer) {ActiveScreen = demoScreen};
-
             //var demoList = demoScreen.FindControl<ListBox>("DemoList");
-            var demoContent = demoScreen.FindControl<ContentControl>("Content");
+            var demoContent = Screen.FindControl<ContentControl>("Content");
 
             //demoList.SelectedIndexChanged += (sender, args) => demoContent.Content = (demoList.SelectedItem as DemoViewModel)?.Content;
             //demoContent.Content = (demoList.SelectedItem as DemoViewModel)?.Content;
         }
 
-        public class DemoViewModel
+        public class ViewModel
         {
-            public DemoViewModel(string name, object content)
+            public ViewModel(string name, object content)
             {
                 Name = name;
                 Content = content;

@@ -62,7 +62,7 @@ namespace LudumDare46
 
             Window.AllowUserResizing = true;
 
-            _guiMain = new GUIMain(_graphics, _boxingViewportAdapter, _guiSpriteBatchRenderer, Content);
+            
 
             base.Initialize();
 
@@ -78,6 +78,7 @@ namespace LudumDare46
             _blackRectangle = new Texture2D(GraphicsDevice, 1, 1);
             _blackRectangle.SetData(new[] {Color.Red});
 
+            _guiMain = new GUIMain(_graphics, _boxingViewportAdapter, _guiSpriteBatchRenderer, Content, _textureManager);
             _guiMain.LoadContent();
 
             // TODO: use this.Content to load your game content here
