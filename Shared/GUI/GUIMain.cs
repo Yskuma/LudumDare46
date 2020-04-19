@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -54,13 +55,38 @@ namespace LudumDare46.Shared.GUI
             //textBox.CaretIndexChanged += (sender, args) =>
             //    statusLabel.Content = $"Ln {textBox.LineIndex + 1}, Ch {textBox.CaretIndex + 1}";
 
+            var buttonModels = new List<ButtonModel>()
+            {
+                new ButtonModel("Turret", "Turret"),
+                new ButtonModel("BarrelExtender", "BarrelExtender"),
+                new ButtonModel("BeltFeed", "BeltFeed"),
+                new ButtonModel("Loader", "Loader"),
+            };
+
+            var buttons = new UniformGrid()
+            {
+                Columns = 3
+            };
+
+            foreach (var buttonModel in buttonModels)
+            {
+                buttons.Items.Add(new Button
+                {
+                    Size = new Size(64,
+                        64),
+                    Margin = 5,
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top
+                });
+            }
+
             var Screen =
                 new Screen
                 {
                     Content = new DockPanel
                     {
                         Name = "DemoList",
-                        AttachedProperties = {{DockPanel.DockProperty, Dock.Left}},
+                        AttachedProperties = {{DockPanel.DockProperty, Dock.Right}},
                         VerticalAlignment = VerticalAlignment.Stretch,
                         HorizontalAlignment = HorizontalAlignment.Left,
                         BackgroundColor = new Color(30, 30, 30),
@@ -81,48 +107,7 @@ namespace LudumDare46.Shared.GUI
                                         VerticalTextAlignment = VerticalAlignment.Top
                                     },
 
-                                    new UniformGrid
-                                    {
-                                        
-                                        Columns = 3,
-                                        
-                                        Items =
-                                        {
-                                            new Button
-                                            {
-                                                Size = new Size(64,
-                                                    64),
-                                                Margin = 5,
-
-                                                HorizontalAlignment = HorizontalAlignment.Left,
-                                                VerticalAlignment = VerticalAlignment.Top
-                                            },
-                                            new Button
-                                            {
-                                                Size = new Size(64,
-                                                    64),
-                                                Margin = 5,
-                                                HorizontalAlignment = HorizontalAlignment.Left,
-                                                VerticalAlignment = VerticalAlignment.Top
-                                            },
-                                            new Button
-                                            {
-                                                Size = new Size(64,
-                                                    64),
-                                                Margin = 5,
-                                                HorizontalAlignment = HorizontalAlignment.Left,
-                                                VerticalAlignment = VerticalAlignment.Top
-                                            },
-                                            new Button
-                                            {
-                                                Size = new Size(64,
-                                                    64),
-                                                Margin = 5,
-                                                HorizontalAlignment = HorizontalAlignment.Left,
-                                                VerticalAlignment = VerticalAlignment.Top
-                                            }
-                                        }
-                                    }
+                                    buttons
                                 }
                             }
                         }
@@ -141,16 +126,16 @@ namespace LudumDare46.Shared.GUI
             //demoContent.Content = (demoList.SelectedItem as DemoViewModel)?.Content;
         }
 
-        public class ViewModel
+        public class ButtonModel
         {
-            public ViewModel(string name, object content)
+            public ButtonModel(string name, string texture)
             {
                 Name = name;
-                Content = content;
+                Texture = texture;
             }
 
             public string Name { get; }
-            public object Content { get; }
+            public string Texture { get; }
 
             public override string ToString()
             {
