@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.ViewportAdapters;
+using LudumDare46.Shared.GUI;
+using MonoGame.Extended.Gui;
 
 namespace LudumDare46
 {
@@ -18,6 +20,9 @@ namespace LudumDare46
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private TextureManager _textureManager;
+
+        private GUIMain _guiMain;
+        private GuiSpriteBatchRenderer _guiSpriteBatchRenderer;
 
         public Game1()
         {
@@ -38,6 +43,8 @@ namespace LudumDare46
 
             _currentLevel.Draw(gameTime);
 
+            _guiMain.Draw(gameTime);
+
             base.Draw(gameTime);
         }
 
@@ -51,11 +58,16 @@ namespace LudumDare46
             _graphics.PreferredBackBufferWidth = 1024;
             _graphics.ApplyChanges();
 
+            _guiSpriteBatchRenderer = new GuiSpriteBatchRenderer(GraphicsDevice, () => Matrix.Identity);
+
             Window.AllowUserResizing = true;
+
+            _guiMain = new GUIMain(_graphics, _boxingViewportAdapter, _guiSpriteBatchRenderer, Content);
 
             base.Initialize();
 
             _currentLevel = new Level01Factory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);
+            
         }
 
         protected override void LoadContent()
@@ -65,6 +77,8 @@ namespace LudumDare46
 
             _blackRectangle = new Texture2D(GraphicsDevice, 1, 1);
             _blackRectangle.SetData(new[] {Color.Red});
+
+            _guiMain.LoadContent();
 
             // TODO: use this.Content to load your game content here
         }
@@ -79,6 +93,9 @@ namespace LudumDare46
 
             // TODO: Add your update logic here
             _currentLevel.Update(gameTime);
+
+            _guiMain.Update(gameTime);
+            
             base.Update(gameTime);
         }
     }
