@@ -40,10 +40,10 @@ namespace LudumDare46.Shared.Systems
                 var e = CreateEntity();
                 e.Attach(new Sprite(_textureManager.SciFiUnit06));
                 e.Attach(new Transform2(spawnX, spawnY,0.0F, 1.0F, 1.0F));
-                e.Attach(new MovementComponent(Vector2.UnitX * 40));
+                e.Attach(new MovementComponent(Vector2.UnitX * 80));
                 e.Attach(new EnemyComponent());
 
-                TimeUntilNextSpawn = TimeUntilNextSpawn + 5;
+                TimeUntilNextSpawn = TimeUntilNextSpawn + 2;
             }
 
 

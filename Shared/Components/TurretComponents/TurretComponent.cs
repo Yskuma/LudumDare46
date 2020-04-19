@@ -19,6 +19,7 @@ namespace LudumDare46.Shared.Components.TurretComponents
         {
             Range = range;
             FireRate = fireRate;
+            Radius = 64f;
         }
     }
 }
