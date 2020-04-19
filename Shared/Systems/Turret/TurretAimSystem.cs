@@ -22,14 +22,11 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<MovementComponent> _movementMapper;
 
         private readonly TextureManager _textureManager;
-        private readonly ViewportAdapter _viewportAdapter;
 
-
-        public TurretAimSystem(TextureManager textureManager, ViewportAdapter viewportAdapter) : base(
+        public TurretAimSystem(TextureManager textureManager) : base(
             Aspect.One(typeof(TurretComponent), typeof(EnemyComponent)).All(typeof(Transform2)))
         {
             _textureManager = textureManager;
-            _viewportAdapter = viewportAdapter;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -83,7 +80,7 @@ namespace LudumDare46.Shared.Systems
                     {
                         var bulletSpeed = 400f;
                         var targetPosition = new Vector2(enemyTransform.Position.X, enemyTransform.Position.Y);
-                        var targetTime = targetPosition.Length() / bulletSpeed;
+                        var targetTime = (targetPosition - turretTransform.Position).Length() / bulletSpeed;
                         targetPosition.X = targetPosition.X + (enemyMovement.Speed.X * targetTime);
 
                         var bullet = CreateEntity();

@@ -16,14 +16,9 @@ namespace LudumDare46.Shared.Systems.Bullet
         private ComponentMapper<Transform2> _transformMapper;
         private ComponentMapper<MovementComponent> _movementMapper;
 
-        private readonly TextureManager _textureManager;
-        private readonly ViewportAdapter _viewportAdapter;
-
-        public BulletStopSystem(TextureManager textureManager, ViewportAdapter viewportAdapter) : base(
+        public BulletStopSystem() : base(
             Aspect.All(typeof(BulletComponent), typeof(Transform2), typeof(MovementComponent)))
         {
-            _textureManager = textureManager;
-            _viewportAdapter = viewportAdapter;
         }
 
         public override void Initialize(IComponentMapperService mapperService)

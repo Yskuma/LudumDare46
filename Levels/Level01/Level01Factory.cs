@@ -41,15 +41,15 @@ namespace LudumDare46.Levels.Level01
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
-                .AddSystem(new EnemyCollisionSystem(textureManager, viewportAdapter, damageAreas))
-                .AddSystem(new BulletStopSystem(textureManager, viewportAdapter))
-                .AddSystem(new BulletDamageSystem(textureManager, viewportAdapter))
-                .AddSystem(new BulletCleanupSystem(textureManager, viewportAdapter))
+                .AddSystem(new EnemyCollisionSystem(damageAreas))
+                .AddSystem(new BulletStopSystem())
+                .AddSystem(new BulletDamageSystem())
+                .AddSystem(new BulletCleanupSystem())
                 .AddSystem(new EnemyDeathSystem())
                 .AddSystem(new MovementSystem())
-                .AddSystem(new TurretAimSystem(textureManager, viewportAdapter))
+                .AddSystem(new TurretAimSystem(textureManager))
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager, map))
-                .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager));
+                .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter));
 
             var world = worldBuilder.Build();
 

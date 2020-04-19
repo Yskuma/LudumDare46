@@ -43,7 +43,7 @@ namespace LudumDare46.Shared.Systems
                 e.Attach(new MovementComponent(Vector2.UnitX * 80));
                 e.Attach(new EnemyComponent());
 
-                TimeUntilNextSpawn = TimeUntilNextSpawn + 2;
+                TimeUntilNextSpawn = TimeUntilNextSpawn + 1;
             }
 
 

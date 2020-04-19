@@ -18,17 +18,12 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<Transform2> _transformMapper;
         private ComponentMapper<MovementComponent> _movementMapper;
 
-        private readonly TextureManager _textureManager;
-        private readonly ViewportAdapter _viewportAdapter;
-
         private double TimeUntilNextSpawn = 0;
         private List<Rectangle> _stopAreas;
 
-        public EnemyCollisionSystem(TextureManager textureManager, ViewportAdapter viewportAdapter,List<Rectangle> stopAreas) : base(
+        public EnemyCollisionSystem(List<Rectangle> stopAreas) : base(
             Aspect.All(typeof(EnemyComponent), typeof(Transform2), typeof(MovementComponent)))
         {
-            _textureManager = textureManager;
-            _viewportAdapter = viewportAdapter;
             _stopAreas = stopAreas;
         }
 
