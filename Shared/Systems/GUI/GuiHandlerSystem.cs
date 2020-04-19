@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
+using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Gui.Controls;
-using MonoGame.Extended.Gui.Markup;
-using MonoGame.Extended.Gui.Serialization;
-using MonoGame.Extended.Sprites;
-using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.ViewportAdapters;
 
-namespace LudumDare46.Shared.GUI
+namespace LudumDare46.Shared.Systems.Gui
 {
-    class GUIMain
+    class GuiHandlerSystem : IUpdateSystem, IDrawSystem
     {
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
         private readonly ViewportAdapter _defaultViewportAdapter;
@@ -26,7 +20,7 @@ namespace LudumDare46.Shared.GUI
         private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
 
-        public GUIMain(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
+        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
             ContentManager contentManager, TextureManager textureManager)
         {
             _graphicsDeviceManager = graphics;
@@ -36,24 +30,11 @@ namespace LudumDare46.Shared.GUI
             _textureManager = textureManager;
         }
 
-        public void LoadContent()
+        public void Initialize(World world)
         {
             var font = _contentManager.Load<BitmapFont>("KennyBold");
             BitmapFont.UseKernings = false;
             Skin.CreateDefault(font);
-
-            //var parser = new MarkupParser();
-
-            //var mainScreen = new Screen
-            //{
-            //    Content = parser.Parse("Features/MainWindow.mgeml", new object())
-            //};
-
-            //var textBox = mainScreen.FindControl<TextBox>("TextBox");
-            //var statusLabel = mainScreen.FindControl<Label>("StatusLabel");
-
-            //textBox.CaretIndexChanged += (sender, args) =>
-            //    statusLabel.Content = $"Ln {textBox.LineIndex + 1}, Ch {textBox.CaretIndex + 1}";
 
             var buttonModels = new List<ButtonModel>()
             {
@@ -119,11 +100,6 @@ namespace LudumDare46.Shared.GUI
                 ActiveScreen = Screen
             };
 
-            //var demoList = demoScreen.FindControl<ListBox>("DemoList");
-            var demoContent = Screen.FindControl<ContentControl>("Content");
-
-            //demoList.SelectedIndexChanged += (sender, args) => demoContent.Content = (demoList.SelectedItem as DemoViewModel)?.Content;
-            //demoContent.Content = (demoList.SelectedItem as DemoViewModel)?.Content;
         }
 
         public class ButtonModel
@@ -152,5 +128,11 @@ namespace LudumDare46.Shared.GUI
         {
             _guiSystem.Draw(gameTime);
         }
+
+        public void Dispose()
+        {
+            //throw new NotImplementedException();
+        }
+
     }
 }

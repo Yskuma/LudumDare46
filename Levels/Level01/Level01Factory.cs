@@ -6,12 +6,14 @@ using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Components.TurretComponents;
 using LudumDare46.Shared.Systems;
 using LudumDare46.Shared.Systems.Bullet;
+using LudumDare46.Shared.Systems.Gui;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Graphics;
+using MonoGame.Extended.Gui;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.Tiled;
@@ -24,6 +26,7 @@ namespace LudumDare46.Levels.Level01
         public World Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager,
             ViewportAdapter viewportAdapter, ContentManager contentManager)
         {
+            var guiSpriteBatchRenderer = new GuiSpriteBatchRenderer(graphicsDeviceManager.GraphicsDevice, () => Matrix.Identity);
             var worldBuilder = new WorldBuilder();
 
             var map = contentManager.Load<TiledMap>("Level01");
@@ -37,7 +40,7 @@ namespace LudumDare46.Levels.Level01
             var damageAreas = areaLayer.Objects.Where(r => r.Type == "Damage")
                 .Select(r => new Rectangle((int)r.Position.X, (int)r.Position.Y, (int)r.Size.Width, (int)r.Size.Height))
                 .ToList();
-            
+
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
@@ -48,8 +51,11 @@ namespace LudumDare46.Levels.Level01
                 .AddSystem(new EnemyDeathSystem())
                 .AddSystem(new MovementSystem())
                 .AddSystem(new TurretAimSystem(textureManager))
-                .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager, map))
-                .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter));
+                .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager,
+                    map))
+                .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
+                .AddSystem(new GuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager));
+
 
             var world = worldBuilder.Build();
 
