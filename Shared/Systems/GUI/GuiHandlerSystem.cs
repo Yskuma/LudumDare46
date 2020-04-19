@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using LudumDare46.Shared.Enums;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +11,7 @@ using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Gui.Controls;
+using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.ViewportAdapters;
 
@@ -21,6 +25,10 @@ namespace LudumDare46.Shared.Systems.Gui
         private readonly ContentManager _contentManager;
         private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
+
+        private List<ButtonModel> buttonModels;
+
+        public Enums.TurretPart SelectedPart;
 
         public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
             ContentManager contentManager, TextureManager textureManager)
@@ -38,26 +46,100 @@ namespace LudumDare46.Shared.Systems.Gui
             BitmapFont.UseKernings = false;
             Skin.CreateDefault(font);
 
-            var buttonModels = new List<ButtonModel>()
+            SelectedPart = TurretPart.Empty;
+
+            buttonModels = new List<ButtonModel>()
             {
-                new ButtonModel("BarrelEnd", _textureManager.BarrelEnd),
-                new ButtonModel("BarrelExtender", _textureManager.BarrelExtender),
-                new ButtonModel("BeltFeed", _textureManager.BeltFeed),
-                new ButtonModel("Loader", _textureManager.Loader),
-                new ButtonModel("AmmoAP", _textureManager.AmmoAP),
-                new ButtonModel("AmmoExp", _textureManager.AmmoExp),
-                new ButtonModel("AmmoFrag", _textureManager.AmmoFrag),
+                new ButtonModel("BarrelEnd", 
+                    _textureManager.BarrelEnd,
+                    "Barrel End" +
+                    "\r\n\r\nBullets" +
+                    "\r\ncome out of" +
+                    "\r\nhere.",
+                    Enums.TurretPart.Turret),
+                new ButtonModel("BarrelExtender", 
+                    _textureManager.BarrelExtender,
+                    "Extender" +
+                    "\r\n\r\nPlace to" +
+                    "\r\nright of" +
+                    "\r\nbarrel." +
+                    "\r\nIncreases" +
+                    "\r\ndamage and" +
+                    "\r\nreduces" +
+                    "\r\nrate of fire.",
+                    Enums.TurretPart.BarrelExtender),
+                new ButtonModel("BeltFeed", 
+                    _textureManager.BeltFeed,
+                    "Belt Feed" +
+                    "\r\n\r\nFeeds ammo" +
+                    "\r\nfrom loaders" +
+                    "\r\ninto adjacent" +
+                    "\r\nbarrel end" +
+                    "\r\nor extender.",
+                    Enums.TurretPart.BeltFeed),
+                new ButtonModel("Loader", 
+                    _textureManager.Loader,
+                    "Ammo Loader" +
+                    "\r\n\r\nFeeds ammo" +
+                    "\r\nfrom Ammo " +
+                    "\r\nBoxes into " +
+                    "\r\nadjacent belts " +
+                    "\r\nbarrel ends" +
+                    "\r\nor extenders." +
+                    "\r\nIncreases fire" +
+                    "\r\nrate.",
+                    Enums.TurretPart.AutoLoader),
+                new ButtonModel("AmmoAP", 
+                    _textureManager.AmmoAP,
+                    "AP Ammo Box" +
+                "\r\n\r\nSupplies" +
+                "\r\nArmour piercing" +
+                "\r\nrounds to " +
+                "\r\nloaders. " +
+                "\r\nIncreases" +
+                "\r\nArmour" +
+                "\r\npenetration." +
+                "\r\nIncreases"+
+                "\r\ndamage.",
+                    Enums.TurretPart.APAmmo),
+                new ButtonModel("AmmoExp", _textureManager.AmmoExp,
+                    "Explosive" +
+                    "\r\nAmmo Box" +
+                    "\r\n\r\nSupplies" +
+                    "\r\nExplosive" +
+                    "\r\nrounds to " +
+                    "\r\nloaders. " +
+                    "\r\nIncreases" +
+                    "\r\nRadius." +
+                    "\r\nDecreases"+
+                    "\r\nArmour" +
+                    "\r\npenetration.",
+                    Enums.TurretPart.ExplosiveAmmo),
+                new ButtonModel("AmmoFrag", _textureManager.AmmoFrag,
+                    "Fragmentation" +
+                    "\r\nAmmo Box" +
+                    "\r\n\r\nSupplies" +
+                    "\r\nExplosive" +
+                    "\r\nrounds to " +
+                    "\r\nloaders. " +
+                    "\r\nIncreases" +
+                    "\r\nRadius." +
+                    "\r\nDecreases"+
+                    "\r\ndamage.",
+                    Enums.TurretPart.FragAmmo),
             };
 
             var buttons = new UniformGrid()
             {
+                Name = "Buttons",
                 Columns = 3
             };
 
             foreach (var buttonModel in buttonModels)
             {
-                buttons.Items.Add(new Button
+                buttons.Items.Add(new Button()
                 {
+                    Name = buttonModel.Name,
                     Size = new Size(64,
                         64),
                     Margin = 5,
@@ -75,10 +157,11 @@ namespace LudumDare46.Shared.Systems.Gui
                     {
                         Name = "DemoList",
                         AttachedProperties = {{DockPanel.DockProperty, Dock.Right}},
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Left,
+                        VerticalAlignment = VerticalAlignment.Top,
+                        HorizontalAlignment = HorizontalAlignment.Right,
                         BackgroundColor = new Color(30, 30, 30),
                         LastChildFill = true,
+                        Size = new Size(300, _defaultViewportAdapter.ViewportHeight),
                         Items =
                         {
                             new StackPanel()
@@ -95,9 +178,16 @@ namespace LudumDare46.Shared.Systems.Gui
                                         VerticalTextAlignment = VerticalAlignment.Top
                                     },
 
-                                    buttons
+                                    buttons,
+                                    new TextBox()
+                                    {
+                                        Name = "Description",
+                                        VerticalTextAlignment = VerticalAlignment.Top,
+                                        Size = new Size(280, _defaultViewportAdapter.ViewportHeight)
+                                    }
                                 }
                             }
+                            
                         }
                     }
                 };
@@ -111,14 +201,19 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public class ButtonModel
         {
-            public ButtonModel(string name, TextureRegion2D texture)
+            public ButtonModel(string name, TextureRegion2D texture, string description, Enums.TurretPart part)
             {
                 Name = name;
                 Texture = texture;
+                Description = description;
+                Part = part;
             }
 
             public string Name { get; }
             public TextureRegion2D Texture { get; }
+
+            public string Description { get; }
+            public Enums.TurretPart Part { get; }
 
             public override string ToString()
             {
@@ -129,6 +224,20 @@ namespace LudumDare46.Shared.Systems.Gui
         public void Update(GameTime gameTime)
         {
             _guiSystem.Update(gameTime);
+
+            foreach (var buttonModel in buttonModels)
+            {
+                var button = _guiSystem.ActiveScreen.FindControl<Button>(buttonModel.Name);
+                if (button.IsPressed)
+                {
+                    var description = _guiSystem.ActiveScreen.FindControl<TextBox>("Description");
+                    description.Text = buttonModel.Description;
+                    SelectedPart = buttonModel.Part;
+                }
+            }
+
+            
+
         }
 
         public void Draw(GameTime gameTime)
