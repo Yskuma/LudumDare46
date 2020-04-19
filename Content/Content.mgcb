@@ -53,6 +53,23 @@
 /processor:TiledMapTilesetProcessor
 /build:roguelikeSheet_tiles.tsx
 
+#begin KennyBold.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:KennyBold.fnt
+
+#begin KennyBold_0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:KennyBold_0.png
+
 #begin roguelikeSheet_transparent.png
 /importer:TextureImporter
 /processor:TextureProcessor
