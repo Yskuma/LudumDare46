@@ -19,9 +19,11 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<TurretComponent> _turretMapper;
         private ComponentMapper<EnemyComponent> _enemyMapper;
         private ComponentMapper<Transform2> _transformMapper;
+        private ComponentMapper<MovementComponent> _movementMapper;
 
         private readonly TextureManager _textureManager;
         private readonly ViewportAdapter _viewportAdapter;
+
 
         public TurretAimSystem(TextureManager textureManager, ViewportAdapter viewportAdapter) : base(
             Aspect.One(typeof(TurretComponent), typeof(EnemyComponent)).All(typeof(Transform2)))
@@ -35,6 +37,7 @@ namespace LudumDare46.Shared.Systems
             _turretMapper = mapperService.GetMapper<TurretComponent>();
             _transformMapper = mapperService.GetMapper<Transform2>();
             _enemyMapper = mapperService.GetMapper<EnemyComponent>();
+            _movementMapper = mapperService.GetMapper<MovementComponent>();
         }
 
         public override void Update(GameTime gameTime)
@@ -60,52 +63,53 @@ namespace LudumDare46.Shared.Systems
                     var enemyTransform = _transformMapper.Get(e);
                     var d = Vector2.DistanceSquared(turretTransform.Position, enemyTransform.Position);
 
-                    if(d < distance)
+                    if (d < distance)
                     {
                         distance = d;
                         nearestEnemy = e;
                     }
                 }
 
-                
                 // Point at nearest
                 if (nearestEnemy.HasValue)
                 {
                     var enemyTransform = _transformMapper.Get(nearestEnemy.Value);
-                    turretTransform.Rotation = MathF.Atan2( turretTransform.Position.Y - enemyTransform.Position.Y,
+                    var enemyMovement = _movementMapper.Get(nearestEnemy.Value);
+
+                    turretTransform.Rotation = MathF.Atan2(turretTransform.Position.Y - enemyTransform.Position.Y,
                         turretTransform.Position.X - enemyTransform.Position.X);
 
                     if (turret.ReloadTimeRemaining < 0)
                     {
                         var bulletSpeed = 400f;
-                        
+                        var targetPosition = new Vector2(enemyTransform.Position.X, enemyTransform.Position.Y);
+                        var targetTime = targetPosition.Length() / bulletSpeed;
+                        targetPosition.X = targetPosition.X + (enemyMovement.Speed.X * targetTime);
+
                         var bullet = CreateEntity();
                         bullet.Attach(new Sprite(_textureManager.Bullet));
                         bullet.Attach(new BulletComponent()
                         {
-                            TargetPosition = new Vector2(enemyTransform.Position.X, enemyTransform.Position.Y),
+                            TargetPosition = targetPosition,
                             Radius = turret.Radius,
                             PhysicalDamage = turret.PhysicalDamage,
                             ArmourPierce = turret.ArmourPierce,
                             Speed = bulletSpeed
                         });
                         bullet.Attach(new Transform2(turretTransform.Position.X, turretTransform.Position.Y));
-                        var mov = Vector2.Normalize(enemyTransform.Position - turretTransform.Position) * bulletSpeed;
+                        var mov = Vector2.Normalize(targetPosition - turretTransform.Position) * bulletSpeed;
                         bullet.Attach(new MovementComponent(mov));
 
                         turret.ReloadTimeRemaining = 1.0 / turret.FireRate;
                     }
-
-
                 }
             }
         }
 
-        
 
         private void FaceNearestEnemy(Transform2 transform)
         {
-            transform.Rotation = (float)(1.5 * Math.PI);
+            transform.Rotation = (float) (1.5 * Math.PI);
         }
     }
 }

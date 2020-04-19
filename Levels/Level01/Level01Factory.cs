@@ -43,7 +43,9 @@ namespace LudumDare46.Levels.Level01
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
                 .AddSystem(new EnemyCollisionSystem(textureManager, viewportAdapter, damageAreas))
                 .AddSystem(new BulletStopSystem(textureManager, viewportAdapter))
+                .AddSystem(new BulletDamageSystem(textureManager, viewportAdapter))
                 .AddSystem(new BulletCleanupSystem(textureManager, viewportAdapter))
+                .AddSystem(new EnemyDeathSystem())
                 .AddSystem(new MovementSystem())
                 .AddSystem(new TurretAimSystem(textureManager, viewportAdapter))
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager, map))
@@ -51,10 +53,29 @@ namespace LudumDare46.Levels.Level01
 
             var world = worldBuilder.Build();
 
-            var turret = world.CreateEntity();
-            turret.Attach(new Sprite(textureManager.Turret));
-            turret.Attach(new Transform2(720,352,0,1.0F,1.0F));
-            turret.Attach(new TurretComponent(400, 1.0f / 2));
+            var turret1 = world.CreateEntity();
+            turret1.Attach(new Sprite(textureManager.Turret));
+            turret1.Attach(new Transform2(720,192,0,1.0F,1.0F));
+            turret1.Attach(new TurretComponent(400, 1.0f / 2)
+            {
+                PhysicalDamage = 5
+            });
+
+            var turret2 = world.CreateEntity();
+            turret2.Attach(new Sprite(textureManager.Turret));
+            turret2.Attach(new Transform2(720,352,0,1.0F,1.0F));
+            turret2.Attach(new TurretComponent(400, 1.0f / 0.3f)
+            {
+                PhysicalDamage = 0.5f
+            });
+
+            var turret3 = world.CreateEntity();
+            turret3.Attach(new Sprite(textureManager.Turret));
+            turret3.Attach(new Transform2(720,512,0,1.0F,1.0F));
+            turret3.Attach(new TurretComponent(400, 1.0f / 2)
+            {
+                PhysicalDamage = 5
+            });
          
         
             return world;
