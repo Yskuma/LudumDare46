@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LudumDare46.Shared;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Systems;
@@ -25,20 +26,27 @@ namespace LudumDare46.Levels.Level01
 
             var map = contentManager.Load<TiledMap>("Level01");
 
+            var areaLayer = map.ObjectLayers.FirstOrDefault(r => r.Name == "Areas");
+
+            var spawnAreas = areaLayer.Objects
+                .Where(r => r.Type == "Spawn")
+                .Select(r => new Rectangle((int)r.Position.X, (int)r.Position.Y, (int)r.Size.Width, (int)r.Size.Height))
+                .ToList();
+            var damageAreas = areaLayer.Objects.Where(r => r.Type == "Damage")
+                .Select(r => new Rectangle((int)r.Position.X, (int)r.Position.Y, (int)r.Size.Width, (int)r.Size.Height))
+                .ToList();
+            
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
-                .AddSystem(new EnemySystem(textureManager, viewportAdapter))
+                .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
+                .AddSystem(new EnemyCollisionSystem(textureManager, viewportAdapter, damageAreas))
                 .AddSystem(new MovementSystem())
-                .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager, map));
-                //.AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager));
+                .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager, map))
+                .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager));
 
             var world = worldBuilder.Build();
-
-            var s = map.ObjectLayers[0].Objects[0].Size;
-            var p = map.ObjectLayers[0].Objects[0].Position;
-
-            Console.WriteLine($"Size is {s.Width},{s.Height}");
-            Console.WriteLine($"Position is {p.X},{p.Y}");
+         
+        
             return world;
         }
 
