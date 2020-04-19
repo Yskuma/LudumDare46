@@ -80,7 +80,7 @@ namespace LudumDare46.Shared.Systems
                     {
                         var bulletSpeed = 400f;
                         var targetPosition = new Vector2(enemyTransform.Position.X, enemyTransform.Position.Y);
-                        var targetTime = targetPosition.Length() / bulletSpeed;
+                        var targetTime = (targetPosition - turretTransform.Position).Length() / bulletSpeed;
                         targetPosition.X = targetPosition.X + (enemyMovement.Speed.X * targetTime);
 
                         var bullet = CreateEntity();
