@@ -17,15 +17,13 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<Sprite> _spriteMapper;
         private ComponentMapper<Transform2> _transformMapper;
         private readonly ViewportAdapter _viewportAdapter;
-        private TextureManager _textureManager;
 
-        public RenderSpriteSystem(GraphicsDevice graphicsDevice, ViewportAdapter viewportAdapter, TextureManager textureManager)
+        public RenderSpriteSystem(GraphicsDevice graphicsDevice, ViewportAdapter viewportAdapter)
             : base(Aspect.All(typeof(Sprite), typeof(Transform2)))
         {
             _graphicsDevice = graphicsDevice;
             _spriteBatch = new SpriteBatch(graphicsDevice);
             _viewportAdapter = viewportAdapter;
-            _textureManager = textureManager;
         }
 
         public override void Draw(GameTime gameTime)

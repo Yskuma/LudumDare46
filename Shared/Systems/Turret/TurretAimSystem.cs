@@ -22,14 +22,11 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<MovementComponent> _movementMapper;
 
         private readonly TextureManager _textureManager;
-        private readonly ViewportAdapter _viewportAdapter;
 
-
-        public TurretAimSystem(TextureManager textureManager, ViewportAdapter viewportAdapter) : base(
+        public TurretAimSystem(TextureManager textureManager) : base(
             Aspect.One(typeof(TurretComponent), typeof(EnemyComponent)).All(typeof(Transform2)))
         {
             _textureManager = textureManager;
-            _viewportAdapter = viewportAdapter;
         }
 
         public override void Initialize(IComponentMapperService mapperService)

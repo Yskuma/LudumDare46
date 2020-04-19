@@ -20,14 +20,9 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<EnemyComponent> _enemyMapper;
         private ComponentMapper<Transform2> _transformMapper;
 
-        private readonly TextureManager _textureManager;
-        private readonly ViewportAdapter _viewportAdapter;
-
-        public BulletDamageSystem(TextureManager textureManager, ViewportAdapter viewportAdapter) : base(
+        public BulletDamageSystem() : base(
             Aspect.One(typeof(BulletComponent), typeof(EnemyComponent)).All(typeof(Transform2)))
         {
-            _textureManager = textureManager;
-            _viewportAdapter = viewportAdapter;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
