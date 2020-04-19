@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using LudumDare46.Shared;
 using LudumDare46.Shared.Components;
+using LudumDare46.Shared.Components.TurretComponents;
 using LudumDare46.Shared.Systems;
+using LudumDare46.Shared.Systems.Bullet;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -40,11 +42,19 @@ namespace LudumDare46.Levels.Level01
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
                 .AddSystem(new EnemyCollisionSystem(textureManager, viewportAdapter, damageAreas))
+                .AddSystem(new BulletStopSystem(textureManager, viewportAdapter))
+                .AddSystem(new BulletCleanupSystem(textureManager, viewportAdapter))
                 .AddSystem(new MovementSystem())
+                .AddSystem(new TurretAimSystem(textureManager, viewportAdapter))
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager, map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager));
 
             var world = worldBuilder.Build();
+
+            var turret = world.CreateEntity();
+            turret.Attach(new Sprite(textureManager.Turret));
+            turret.Attach(new Transform2(720,352,0,1.0F,1.0F));
+            turret.Attach(new TurretComponent(400, 1.0f / 2));
          
         
             return world;
