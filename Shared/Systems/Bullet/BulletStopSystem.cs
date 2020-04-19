@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Components.BulletComponents;
 using Microsoft.Xna.Framework;
@@ -41,9 +42,11 @@ namespace LudumDare46.Shared.Systems.Bullet
                 var bullet = _bulletMapper.Get(entity);
 
                 var distToTarget = Vector2.DistanceSquared(transform.Position, bullet.TargetPosition);
+                var distToTravel = movement.Speed.LengthSquared() * MathF.Pow((float)gameTime.ElapsedGameTime.TotalSeconds,2);
 
-                if (distToTarget < Math.Pow(bullet.Speed, 2) * gameTime.ElapsedGameTime.TotalSeconds)
+                if (distToTarget < distToTravel)
                 {
+                    //Debug.WriteLine($"Bullet stopped at distance of {distToTarget} with travel dist of {distToTravel} | {a},{b}");
                     movement.Speed = Vector2.Zero;
                     transform.Position = new Vector2(bullet.TargetPosition.X, bullet.TargetPosition.Y);
                     bullet.AtTarget = true;
