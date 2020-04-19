@@ -34,6 +34,14 @@ namespace LudumDare46.Shared
 
         public Texture2D Bullet { get; set; }
 
+        public TextureRegion2D BarrelEnd { get; set; }
+        public TextureRegion2D BeltFeed { get; set; }
+        public TextureRegion2D BarrelExtender { get; set; }
+        public TextureRegion2D AmmoExp { get; set; }
+        public TextureRegion2D AmmoFrag { get; set; }
+        public TextureRegion2D AmmoAP { get; set; }
+        public TextureRegion2D Loader { get; set; }
+
         private void Load()
         {
             RoguelikeSheet = _contentManager.Load<Texture2D>("roguelikeSheet_transparent");
@@ -50,6 +58,14 @@ namespace LudumDare46.Shared
 
             Turret = _contentManager.Load<Texture2D>("turret");
             Bullet = _contentManager.Load<Texture2D>("bullet");
+
+            BarrelEnd = new TextureRegion2D(RoguelikeCity, 13 * 17, 16 * 17, 16, 16);
+            BeltFeed = new TextureRegion2D(RoguelikeCity, 22 * 17, 9 * 17, 16, 16);
+            BarrelExtender = new TextureRegion2D(RoguelikeCity, 10 * 17, 2 * 17, 16, 16);
+            Loader = new TextureRegion2D(RoguelikeCity, 2 * 17, 16 * 17, 16, 16);
+            AmmoExp = new TextureRegion2D(RoguelikeCity, 10 * 17, 18 * 17, 16, 16);
+            AmmoFrag = new TextureRegion2D(RoguelikeCity, 11 * 17, 18 * 17, 16, 16);
+            AmmoAP = new TextureRegion2D(RoguelikeCity, 9 * 17, 18 * 17, 16, 16);
         }
 
         

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Gui.Controls;
+using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.Systems.Gui
@@ -38,10 +40,13 @@ namespace LudumDare46.Shared.Systems.Gui
 
             var buttonModels = new List<ButtonModel>()
             {
-                new ButtonModel("Turret", "Turret"),
-                new ButtonModel("BarrelExtender", "BarrelExtender"),
-                new ButtonModel("BeltFeed", "BeltFeed"),
-                new ButtonModel("Loader", "Loader"),
+                new ButtonModel("BarrelEnd", _textureManager.BarrelEnd),
+                new ButtonModel("BarrelExtender", _textureManager.BarrelExtender),
+                new ButtonModel("BeltFeed", _textureManager.BeltFeed),
+                new ButtonModel("Loader", _textureManager.Loader),
+                new ButtonModel("AmmoAP", _textureManager.AmmoAP),
+                new ButtonModel("AmmoExp", _textureManager.AmmoExp),
+                new ButtonModel("AmmoFrag", _textureManager.AmmoFrag),
             };
 
             var buttons = new UniformGrid()
@@ -57,7 +62,9 @@ namespace LudumDare46.Shared.Systems.Gui
                         64),
                     Margin = 5,
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top
+                    VerticalAlignment = VerticalAlignment.Top,
+                    BackgroundRegion = buttonModel.Texture,
+                    BackgroundColor = Color.White
                 });
             }
 
@@ -104,14 +111,14 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public class ButtonModel
         {
-            public ButtonModel(string name, string texture)
+            public ButtonModel(string name, TextureRegion2D texture)
             {
                 Name = name;
                 Texture = texture;
             }
 
             public string Name { get; }
-            public string Texture { get; }
+            public TextureRegion2D Texture { get; }
 
             public override string ToString()
             {
