@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Components.EnemyComponents;
+using LudumDare46.Shared.Components.explosionComponents;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
@@ -19,12 +20,14 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<MovementComponent> _movementMapper;
 
         private double TimeUntilNextSpawn = 0;
+        private readonly TextureManager _textureManager;
         private List<Rectangle> _stopAreas;
         private LevelState _levelState;
 
-        public EnemyCollisionSystem(List<Rectangle> stopAreas, LevelState levelState) : base(
+        public EnemyCollisionSystem(TextureManager textureManager, List<Rectangle> stopAreas, LevelState levelState) : base(
             Aspect.All(typeof(EnemyComponent), typeof(Transform2), typeof(MovementComponent)))
         {
+            _textureManager = textureManager;
             _stopAreas = stopAreas;
             _levelState = levelState;
         }
@@ -52,6 +55,21 @@ namespace LudumDare46.Shared.Systems
                     {
                         //movement.Speed = Vector2.Zero;
                         _levelState.BuildingHealth = _levelState.BuildingHealth - 1;
+
+                        var explosion = CreateEntity();
+                        explosion.Attach(new Transform2(
+                            new Vector2(transform.Position.X, transform.Position.Y),
+                            0.0F,
+                            Vector2.Zero
+                        ));
+                        explosion.Attach(new Sprite(_textureManager.EnemyExplosion));
+                        explosion.Attach(new ExplosionComponent()
+                        {
+                            CurrentRadius = 0.0f,
+                            ExplosionSpeed = 500.0f,
+                            MaxRadius = 200.0f
+                        });
+
                         DestroyEntity(entity);
                     }
                 }
