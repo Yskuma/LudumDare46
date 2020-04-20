@@ -99,6 +99,13 @@ namespace LudumDare46
                 _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, turretState);
             }
 
+            if (_currentLevel.LevelState.RestartDone)
+            {
+                var turretState = _currentLevel.TurretState;
+                _currentLevel.World.Dispose();
+                _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
+            }
+
             // TODO: Add your update logic here
             _currentLevel.World.Update(gameTime);
 

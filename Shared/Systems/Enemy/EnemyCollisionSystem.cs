@@ -74,6 +74,11 @@ namespace LudumDare46.Shared.Systems
 
                         _soundManager.Explosion2.Play(0.5f, 0,0);
 
+                        if (_levelState.BuildingHealth <= 0)
+                        {
+                            _levelState.GameOver = true;
+                            _levelState.BuildingHealth = 0;
+                        }
                         DestroyEntity(entity);
                     }
                 }

@@ -20,7 +20,7 @@ using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.Systems.Gui
 {
-    class PlayGuiHandlerSystem : IUpdateSystem, IDrawSystem
+    class GameOverGuiHandlerSystem : IUpdateSystem, IDrawSystem
     {
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
         private readonly ViewportAdapter _defaultViewportAdapter;
@@ -29,15 +29,13 @@ namespace LudumDare46.Shared.Systems.Gui
         private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
         private LevelState _levelState;
-        private Screen _healthScreen;
-        private Screen _gameOverScreen;
 
         public Enums.TurretPart SelectedPart;
 
         private TurretState _turretState;
 
 
-        public PlayGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
+        public GameOverGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
             GuiSpriteBatchRenderer guiRenderer,
             ContentManager contentManager, TextureManager textureManager, TurretState turretState, LevelState levelState)
         {
@@ -56,33 +54,7 @@ namespace LudumDare46.Shared.Systems.Gui
             BitmapFont.UseKernings = false;
             Skin.CreateDefault(font);
 
-            var _healthScreen =
-                new Screen
-                {
-                    Content = new Canvas()
-                    {
-                        Items =
-                        {
-                            new ProgressBar
-                            {
-                                Name = "HealthBar",
-                                Progress = _levelState.BuildingHealth/ 100,
-                                Size = new Size(200, 50),
-                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100, 0)
-                            },
-                            new Label(_levelState.BuildingHealth.ToString("n0"))
-                            {
-                                Name = "HealthText",
-                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 35, 0),
-                                Size = new Size(70, 50),
-                                HorizontalTextAlignment = HorizontalAlignment.Centre,
-                                VerticalTextAlignment = VerticalAlignment.Centre
-                            }
-                        }
-                    }
-                };
-
-            _gameOverScreen =
+            var screen =
                 new Screen
                 {
                     Content = new Canvas()
@@ -101,8 +73,8 @@ namespace LudumDare46.Shared.Systems.Gui
                             {
                                 Content = "Restart",
                                 Name = "Restart",
-                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 80, _defaultViewportAdapter.ViewportHeight/2 + 30),
-                                Size = new Size(160, 50),
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 30, _defaultViewportAdapter.ViewportHeight/2 + 30),
+                                Size = new Size(60, 30),
                                 HorizontalTextAlignment = HorizontalAlignment.Centre,
                                 VerticalTextAlignment = VerticalAlignment.Centre
                             }
@@ -114,36 +86,16 @@ namespace LudumDare46.Shared.Systems.Gui
 
             _guiSystem = new GuiSystem(_defaultViewportAdapter, _guiSpriteBatchRenderer)
             {
-                ActiveScreen = _healthScreen
+                ActiveScreen = screen
             };
         }
 
         public void Update(GameTime gameTime)
         {
-            var healthBar = _guiSystem.ActiveScreen.FindControl<ProgressBar>("HealthBar");
-            if (healthBar != null)
-            {
-                healthBar.Progress = _levelState.BuildingHealth / 100;
-            }
-
-            var healthtext = _guiSystem.ActiveScreen.FindControl<Label>("HealthText");
-            if (healthtext != null)
-            {
-                healthtext.Content = _levelState.BuildingHealth.ToString("n0");
-            }
-
             var restartButton = _guiSystem.ActiveScreen.FindControl<Button>("Restart");
-            if (restartButton != null)
+            if (restartButton != null && restartButton.IsPressed)
             {
-                if (restartButton != null && restartButton.IsPressed)
-                {
-                    _levelState.RestartDone = true;
-                }
-            }
-
-            if (_levelState.GameOver)
-            {
-                _guiSystem.ActiveScreen = _gameOverScreen;
+                _levelState.RestartDone = true;
             }
 
             _guiSystem.Update(gameTime);
