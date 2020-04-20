@@ -79,8 +79,8 @@ namespace LudumDare46.Shared.Systems.Gui
                             {
                                 Name = "HealthBar",
                                 Progress = _levelState.BuildingHealth/ 100,
-                                Size = new Size(200, 50),
-                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100, 10)
+                                Size = new Size(500, 50),
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 250, 10)
                             },
                             new Label(_levelState.BuildingHealth.ToString("n0"))
                             {
@@ -166,7 +166,7 @@ namespace LudumDare46.Shared.Systems.Gui
             var healthBar = _guiSystem.ActiveScreen.FindControl<ProgressBar>("HealthBar");
             if (healthBar != null)
             {
-                healthBar.Progress = _levelState.BuildingHealth / 100;
+                healthBar.Progress = _levelState.BuildingHealth / 10;
             }
 
             var healthtext = _guiSystem.ActiveScreen.FindControl<Label>("HealthText");
