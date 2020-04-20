@@ -57,7 +57,8 @@ namespace LudumDare46.Shared.Systems
                     if (d < MathF.Pow(bullet.Radius,2))
                     { 
                         var enemy = _enemyMapper.Get(e);
-                        var reduction = (1 - MathF.Max((enemy.Armour - bullet.ArmourPierce) / enemy.Armour, 1));
+                        //var reduction = (1 - MathF.Max((enemy.Armour - bullet.ArmourPierce) / enemy.Armour, 1));
+                        var reduction = bullet.ArmourPierce < enemy.Armour ? 1 - (enemy.Armour - bullet.ArmourPierce) / enemy.Armour : 1;
                         var damage = (bullet.PhysicalDamage) * reduction;
                         enemy.HP -= damage;
                         Debug.WriteLine($"Damage an enemy for {damage} (Base={bullet.PhysicalDamage}, AP={bullet.ArmourPierce}, Armor={enemy.Armour}, Reduction={reduction}) leaving it on {enemy.HP} HP");

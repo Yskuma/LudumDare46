@@ -94,10 +94,10 @@ namespace LudumDare46.Levels
             foreach (var turret in turrets)
             {
                 turret.physicalDamage = turret.physicalDamage * 15;
-                turret.radius = turret.radius > 2 ? turret.radius * 30 : 2;
-                turret.fireRate = turret.fireRate * 0.3f;
+                turret.radius = turret.radius > 1 ? turret.radius * 25 : 1;
+                turret.fireRate = turret.fireRate * 0.5f;
                 turret.range = (turret.range * 100) + 300;
-                turret.armourPierce = turret.armourPierce > 1 ? turret.armourPierce : 1;
+                turret.armourPierce = turret.armourPierce;
             }
         }
 
@@ -128,11 +128,9 @@ namespace LudumDare46.Levels
                 foreach (var loader in loaders)
                 {
                     loader.radius =
-                        loader.radius * 1.5f;
+                        loader.radius * 1.3f;
                     loader.armourPierce =
                         loader.armourPierce * 0.75f;
-                    loader.physicalDamage =
-                        loader.physicalDamage * 1.1f;
                     loader.hasAmmo = true;
                 }
             }
@@ -155,7 +153,7 @@ namespace LudumDare46.Levels
                 foreach (var loader in loaders)
                 {
                     loader.radius =
-                        loader.radius * 1.3f;
+                        loader.radius * 1.25f;
                     loader.physicalDamage =
                         loader.physicalDamage * 0.90f;
                     loader.hasAmmo = true;
