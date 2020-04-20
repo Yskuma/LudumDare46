@@ -21,13 +21,15 @@ namespace LudumDare46.Shared.Systems
 
         private double TimeUntilNextSpawn = 0;
         private readonly TextureManager _textureManager;
+        private readonly SoundManager _soundManager;
         private List<Rectangle> _stopAreas;
         private LevelState _levelState;
 
-        public EnemyCollisionSystem(TextureManager textureManager, List<Rectangle> stopAreas, LevelState levelState) : base(
+        public EnemyCollisionSystem(TextureManager textureManager, SoundManager soundManager, List<Rectangle> stopAreas, LevelState levelState) : base(
             Aspect.All(typeof(EnemyComponent), typeof(Transform2), typeof(MovementComponent)))
         {
             _textureManager = textureManager;
+            _soundManager = soundManager;
             _stopAreas = stopAreas;
             _levelState = levelState;
         }
@@ -69,6 +71,8 @@ namespace LudumDare46.Shared.Systems
                             ExplosionSpeed = 500.0f,
                             MaxRadius = 200.0f
                         });
+
+                        _soundManager.Explosion2.Play(0.5f, 0,0);
 
                         DestroyEntity(entity);
                     }

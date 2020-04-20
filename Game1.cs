@@ -19,6 +19,7 @@ namespace LudumDare46
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private TextureManager _textureManager;
+        private SoundManager _soundManager;
 
         //private GuiHandlerSystem _guiMain;
         //private GuiSpriteBatchRenderer _guiSpriteBatchRenderer;
@@ -65,13 +66,14 @@ namespace LudumDare46
 
             base.Initialize();
 
-            _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);
+            _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _textureManager = new TextureManager(Content);
+            _soundManager = new SoundManager(Content);
 
             _blackRectangle = new Texture2D(GraphicsDevice, 1, 1);
             _blackRectangle.SetData(new[] {Color.Red});
@@ -94,7 +96,7 @@ namespace LudumDare46
             {
                 var turretState = _currentLevel.TurretState;
                 _currentLevel.World.Dispose();
-                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content, turretState);
+                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, turretState);
             }
 
             // TODO: Add your update logic here

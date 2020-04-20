@@ -106,6 +106,66 @@
 /processorParam:TextureFormat=Color
 /build:roguelikeSheet_transparent.png
 
+#begin Sounds/explosion1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion1.ogg
+
+#begin Sounds/explosion2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion2.ogg
+
+#begin Sounds/explosion3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion3.ogg
+
+#begin Sounds/explosion4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion4.ogg
+
+#begin Sounds/explosion5.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/explosion5.ogg
+
+#begin Sounds/hit1.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/hit1.ogg
+
+#begin Sounds/hit2.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/hit2.ogg
+
+#begin Sounds/hit3.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/hit3.ogg
+
+#begin Sounds/hit4.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/hit4.ogg
+
+#begin Sounds/hit5.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/hit5.ogg
+
 #begin turret.png
 /importer:TextureImporter
 /processor:TextureProcessor
