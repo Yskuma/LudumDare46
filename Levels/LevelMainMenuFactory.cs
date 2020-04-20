@@ -12,6 +12,7 @@ using LudumDare46.Shared.Systems.Turret;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
+using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Tiled;
@@ -42,17 +43,24 @@ namespace LudumDare46.Levels
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager,
                     map))
+                
+                .AddSystem(new MainMenuGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, levelState))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
-                .AddSystem(new MainMenuGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, levelState));
+                .AddSystem(new RenderTextSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter,textureManager));
 
             var world = worldBuilder.Build();
+
             var t = world.CreateEntity();
+            t.Attach(new TextComponent(){Colour = Color.White, Text = "A big thanks to Kenney (Graphics & Sound) and Pudgyplatypus (Music)"});
+            t.Attach(new Transform2(new Vector2(viewportAdapter.ViewportHeight/ 2,viewportAdapter.ViewportHeight - 20)));
 
             var level = new Level()
             {
                 World = world,
                 LevelState = levelState
             };
+
+
 
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(soundManager.FlowingRocks);
