@@ -49,7 +49,7 @@ namespace LudumDare46.Levels
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
-                .AddSystem(new EnemyCollisionSystem(damageAreas))
+                .AddSystem(new EnemyCollisionSystem(damageAreas, levelState))
                 .AddSystem(new BulletStopSystem(textureManager))
                 .AddSystem(new BulletDamageSystem())
                 .AddSystem(new BulletCleanupSystem())
