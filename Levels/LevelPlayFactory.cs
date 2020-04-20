@@ -35,7 +35,7 @@ namespace LudumDare46.Levels
                 IsPlayStage = true,
                 IsBuildStage = false,
                 LevelNum = 1, 
-                BuildingHealth = 50f
+                BuildingHealth = 100f
             };
 
             var spawnAreas = areaLayer.Objects
@@ -49,7 +49,7 @@ namespace LudumDare46.Levels
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
-                .AddSystem(new EnemyCollisionSystem(damageAreas))
+                .AddSystem(new EnemyCollisionSystem(damageAreas, state))
                 .AddSystem(new BulletStopSystem())
                 .AddSystem(new BulletDamageSystem())
                 .AddSystem(new BulletCleanupSystem())
