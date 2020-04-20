@@ -62,16 +62,6 @@ namespace LudumDare46.Levels
 
             var world = worldBuilder.Build();
 
-            
-            for (int x = 45; x < 63; x++)
-            {
-                for (int y = 4; y < 34; y++)
-                {
-                    turretState.TurretStats.Add(new TurretStat(x, y, TurretPart.Empty));
-                }
-            }
-            
-
             var level = new Level()
             {
                 World = world,

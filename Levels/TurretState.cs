@@ -23,56 +23,48 @@ namespace LudumDare46.Levels
         {
             var grid = TurretStats.Where(t => t.x == location.X && t.y == location.Y);
 
-            if (!grid.Any())
+            if (grid.Any())
             {
+                var currentPart = grid.First().turretPart;
+
+                if (currentPart == TurretPart.Empty || part == TurretPart.Empty)
+                {
+                    TurretStats.Remove(grid.First());
+
+                    TurretStats.Add(new TurretStat
+                    {
+                        x = location.X,
+                        y = location.Y,
+                        turretPart = part,
+                        hasAmmo = false,
+                        fireRate = 1,
+                        radius = 1,
+                        physicalDamage = 1,
+                        range = 1,
+                        armourPierce = 1,
+                        newPart = true
+                    });
+                    return true;
+                }
+
                 return false;
             }
 
-            var currentPart = grid.First().turretPart;
-
-            if (currentPart == TurretPart.Empty)
+            TurretStats.Add(new TurretStat
             {
-                TurretStats.Remove(grid.First());
+                x = location.X,
+                y = location.Y,
+                turretPart = part,
+                hasAmmo = false,
+                fireRate = 1,
+                radius = 1,
+                physicalDamage = 1,
+                range = 1,
+                armourPierce = 1,
+                newPart = true
+            });
 
-                TurretStats.Add(new TurretStat
-                {
-                    x = location.X,
-                    y = location.Y,
-                    turretPart = part,
-                    hasAmmo = false,
-                    fireRate = 1,
-                    radius = 1,
-                    physicalDamage = 1,
-                    range = 1,
-                    armourPierce = 1,
-                    newPart = true
-                });
-
-                return true;
-            }
-
-            if (currentPart != TurretPart.Empty && part == TurretPart.Empty)
-            {
-                TurretStats.Remove(grid.First());
-
-                TurretStats.Add(new TurretStat
-                {
-                    x = location.X,
-                    y = location.Y,
-                    turretPart = part,
-                    hasAmmo = false,
-                    fireRate = 1,
-                    radius = 1,
-                    physicalDamage = 1,
-                    range = 1,
-                    armourPierce = 1,
-                    newPart = true
-                });
-
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         public void CalculateDamage()
@@ -280,13 +272,13 @@ namespace LudumDare46.Levels
 
         public void TargetingComputer()
         {
-            var targetingComputers = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.TargetingComputer).ToList();
+            var targetingComputers = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.TargetingComputer)
+                .ToList();
 
             targetingComputers = targetingComputers.OrderByDescending(b => b.x).ToList();
 
             foreach (var computer in targetingComputers)
             {
-                
                 var turret = TurretStats.First(t =>
                     (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
                      || t.turretPart == Shared.Enums.TurretPart.Turret)
@@ -299,7 +291,7 @@ namespace LudumDare46.Levels
                 turret.armourPierce =
                     turret.armourPierce * computer.armourPierce;
                 turret.fireRate =
-                    turret.fireRate * computer.fireRate ;
+                    turret.fireRate * computer.fireRate;
                 turret.radius = turret.radius * computer.radius;
                 turret.range = turret.range * computer.range * 1.5f;
             }
@@ -307,13 +299,13 @@ namespace LudumDare46.Levels
 
         public void BarrelExtenders()
         {
-            var barrelExtenders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.BarrelExtender).ToList();
+            var barrelExtenders =
+                TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.BarrelExtender).ToList();
 
             barrelExtenders = barrelExtenders.OrderByDescending(b => b.x).ToList();
 
             foreach (var extender in barrelExtenders)
             {
-
                 var turret = TurretStats.First(t =>
                     (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
                      || t.turretPart == Shared.Enums.TurretPart.Turret)
