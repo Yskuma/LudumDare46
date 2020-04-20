@@ -30,7 +30,7 @@ namespace LudumDare46
             new LevelDefinition05()
         };
 
-        private int _currentLevelNum = 0;
+        private int _currentLevelNum = -1;
 
         //private GuiHandlerSystem _guiMain;
         //private GuiSpriteBatchRenderer _guiSpriteBatchRenderer;
@@ -77,7 +77,7 @@ namespace LudumDare46
 
             base.Initialize();
 
-            _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, _levelDefinitions[_currentLevelNum]);
+            _currentLevel = new LevelMainMenuFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
         }
 
         protected override void LoadContent()
