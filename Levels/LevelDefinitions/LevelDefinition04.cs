@@ -20,19 +20,25 @@ namespace LudumDare46.Levels.LevelDefinitions
 
             var list = new List<EnemySpawnItem>();
 
-            list.AddRange(Enumerable.Range(0, 50)
+            list.AddRange(Enumerable.Range(0, 100)
                 .Select(r => new EnemySpawnItem()
                 {
-                    SpawnTime = r * 0.25f,
+                    SpawnTime = r * 0.2f,
                     Enemy = helper.Man()
                 }));
 
-            list.AddRange(Enumerable.Range(0, 50)
+            list.AddRange(Enumerable.Range(0, 15)
                 .Select(r => new EnemySpawnItem()
                 {
-                    SpawnTime = r * 0.25f,
-                    Enemy = helper.Man()
+                    SpawnTime = r * 0.5f + 20f,
+                    Enemy = helper.Car()
                 }));
+
+            list.Add(new EnemySpawnItem()
+            {
+                SpawnTime = 32,
+                Enemy = helper.Tank()
+            });
 
             list.Add(new EnemySpawnItem()
             {

@@ -257,7 +257,7 @@ namespace LudumDare46.Levels
                     turret.armourPierce =
                         turret.armourPierce * ((belt.armourPierce - 1) / targetCount + 1);
                     turret.fireRate =
-                        turret.fireRate * ((belt.fireRate * -1) / targetCount + 1);
+                        turret.fireRate * ((belt.fireRate -1) / targetCount + 1);
                     turret.radius = turret.radius * ((belt.radius - 1) / targetCount + 1);
                     turret.range = turret.range * ((belt.range - 1) / targetCount + 1);
                     turret.hasAmmo = belt.hasAmmo;
