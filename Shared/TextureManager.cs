@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.TextureAtlases;
 
 namespace LudumDare46.Shared
@@ -89,7 +90,11 @@ namespace LudumDare46.Shared
             AmmoAP = new TextureRegion2D(RoguelikeCity, 9 * 17, 18 * 17, 16, 16);
             TargetingComputer = new TextureRegion2D(RoguelikeCity, 25 * 17, 8 * 17, 16, 16);
             Remove = new TextureRegion2D(RoguelikeCity, 25 * 17, 5 * 17, 16, 16);
+
+            FontArial = _contentManager.Load<SpriteFont>("Arial");
         }
+
+        public SpriteFont FontArial { get; set; }
 
         private void Unload()
         {

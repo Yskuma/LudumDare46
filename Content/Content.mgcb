@@ -14,6 +14,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Arial.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Arial.spritefont
+
 #begin bullet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -88,11 +95,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:loader.png
-
-#begin Level04.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level04.tmx
 
 #begin Music/Chillstep_1.wav
 /importer:WavImporter
