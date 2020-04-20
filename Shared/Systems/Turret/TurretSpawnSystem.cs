@@ -25,7 +25,8 @@ namespace LudumDare46.Shared.Systems.Turret
         private List<Rectangle> _spawnAreas;
         private Random _random;
 
-        public TurretSpawnSystem(TextureManager textureManager, TurretHelper turretHelper) : base(new AspectBuilder())
+        public TurretSpawnSystem(TextureManager textureManager, TurretHelper turretHelper) 
+            : base(Aspect.All(typeof(TurretComponent), typeof(Transform2)))
         {
             _textureManager = textureManager;
             _turretHelper = turretHelper;
@@ -85,8 +86,7 @@ namespace LudumDare46.Shared.Systems.Turret
                         foreach (var entity in ActiveEntities)
                         {
                             var transform = _transformMapper.Get(entity);
-                            if (transform != null)
-                            {
+                            
                                 if (transform.Position.X > turret.x * 16 - 1
                                     && transform.Position.X < turret.x * 16 + 1
                                     && transform.Position.Y > turret.y * 16 - 1
@@ -94,7 +94,7 @@ namespace LudumDare46.Shared.Systems.Turret
                                 {
                                     DestroyEntity(entity);
                                 }
-                            }
+                            
                         }
 
                         break;
