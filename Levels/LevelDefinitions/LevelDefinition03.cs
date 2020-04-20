@@ -27,10 +27,17 @@ namespace LudumDare46.Levels.LevelDefinitions
                     Enemy = helper.Car()
                 }));
 
-            list.AddRange(Enumerable.Range(0, 20)
+            list.AddRange(Enumerable.Range(0, 30)
                 .Select(r => new EnemySpawnItem()
                 {
                     SpawnTime = r * 0.5f + 10,
+                    Enemy = helper.Truck()
+                }));
+
+            list.AddRange(Enumerable.Range(0, 20)
+                .Select(r => new EnemySpawnItem()
+                {
+                    SpawnTime = r * 0.5f + 20,
                     Enemy = helper.Truck()
                 }));
 
