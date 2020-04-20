@@ -1,4 +1,5 @@
 ﻿using LudumDare46.Levels;
+using LudumDare46.Levels.LevelDefinitions;
 using LudumDare46.Shared;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,16 @@ namespace LudumDare46
         private SpriteBatch _spriteBatch;
         private TextureManager _textureManager;
         private SoundManager _soundManager;
+
+        private LevelDefinition[] _levelDefinitions = {
+            new LevelDefinition01(),
+            new LevelDefinition02(),
+            new LevelDefinition03(),
+            new LevelDefinition04(),
+            new LevelDefinition05()
+        };
+
+        private int _currentLevelNum = 0;
 
         //private GuiHandlerSystem _guiMain;
         //private GuiSpriteBatchRenderer _guiSpriteBatchRenderer;
@@ -66,7 +77,7 @@ namespace LudumDare46
 
             base.Initialize();
 
-            _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
+            _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, _levelDefinitions[_currentLevelNum]);
         }
 
         protected override void LoadContent()
@@ -96,14 +107,14 @@ namespace LudumDare46
             {
                 var turretState = _currentLevel.TurretState;
                 _currentLevel.World.Dispose();
-                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, turretState);
+                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, _levelDefinitions[_currentLevelNum], turretState);
             }
 
             if (_currentLevel.LevelState.RestartDone)
             {
                 var turretState = _currentLevel.TurretState;
                 _currentLevel.World.Dispose();
-                _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
+                _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, _levelDefinitions[_currentLevelNum]);
             }
 
             // TODO: Add your update logic here

@@ -18,13 +18,15 @@ namespace LudumDare46.Levels
 {
     public class LevelPlayFactory
     {
-        public Level Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager, SoundManager soundManager,
-            ViewportAdapter viewportAdapter, ContentManager contentManager, TurretState turretState)
+        public Level Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager,
+            SoundManager soundManager,
+            ViewportAdapter viewportAdapter, ContentManager contentManager, LevelDefinition levelDefinition,
+            TurretState turretState)
         {
             var guiSpriteBatchRenderer = new GuiSpriteBatchRenderer(graphicsDeviceManager.GraphicsDevice, () => Matrix.Identity);
             var worldBuilder = new WorldBuilder();
 
-            var map = contentManager.Load<TiledMap>("Level01");
+            var map = contentManager.Load<TiledMap>(levelDefinition.Map);
 
             var areaLayer = map.ObjectLayers.FirstOrDefault(r => r.Name == "Areas");
             turretState.TurretStats = turretState.TurretStats.Where(r => r.turretPart != TurretPart.Empty).ToList();
