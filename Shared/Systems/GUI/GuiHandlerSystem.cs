@@ -34,7 +34,8 @@ namespace LudumDare46.Shared.Systems.Gui
 
         private TurretHelper _turretHelper;
 
-        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
+        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
+            GuiSpriteBatchRenderer guiRenderer,
             ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper)
         {
             _graphicsDeviceManager = graphics;
@@ -55,14 +56,14 @@ namespace LudumDare46.Shared.Systems.Gui
 
             buttonModels = new List<ButtonModel>()
             {
-                new ButtonModel("BarrelEnd", 
+                new ButtonModel("BarrelEnd",
                     _textureManager.BarrelEnd,
                     "Barrel End" +
                     "\r\n\r\nBullets" +
                     "\r\ncome out of" +
                     "\r\nhere.",
                     Enums.TurretPart.Turret),
-                new ButtonModel("BarrelExtender", 
+                new ButtonModel("BarrelExtender",
                     _textureManager.BarrelExtender,
                     "Extender" +
                     "\r\n\r\nPlace to" +
@@ -73,7 +74,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nreduces" +
                     "\r\nrate of fire.",
                     Enums.TurretPart.BarrelExtender),
-                new ButtonModel("BeltFeed", 
+                new ButtonModel("BeltFeed",
                     _textureManager.BeltFeed,
                     "Belt Feed" +
                     "\r\n\r\nFeeds ammo" +
@@ -82,7 +83,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nbarrel end" +
                     "\r\nor extender.",
                     Enums.TurretPart.BeltFeed),
-                new ButtonModel("Loader", 
+                new ButtonModel("Loader",
                     _textureManager.Loader,
                     "Ammo Loader" +
                     "\r\n\r\nFeeds ammo" +
@@ -94,18 +95,18 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nIncreases fire" +
                     "\r\nrate.",
                     Enums.TurretPart.AutoLoader),
-                new ButtonModel("AmmoAP", 
+                new ButtonModel("AmmoAP",
                     _textureManager.AmmoAP,
                     "AP Ammo Box" +
-                "\r\n\r\nSupplies" +
-                "\r\nArmour piercing" +
-                "\r\nrounds to " +
-                "\r\nloaders. " +
-                "\r\nIncreases" +
-                "\r\nArmour" +
-                "\r\npenetration." +
-                "\r\nIncreases"+
-                "\r\ndamage.",
+                    "\r\n\r\nSupplies" +
+                    "\r\nArmour piercing" +
+                    "\r\nrounds to " +
+                    "\r\nloaders. " +
+                    "\r\nIncreases" +
+                    "\r\nArmour" +
+                    "\r\npenetration." +
+                    "\r\nIncreases" +
+                    "\r\ndamage.",
                     Enums.TurretPart.APAmmo),
                 new ButtonModel("AmmoExp", _textureManager.AmmoExp,
                     "Explosive" +
@@ -116,7 +117,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nloaders. " +
                     "\r\nIncreases" +
                     "\r\nRadius." +
-                    "\r\nDecreases"+
+                    "\r\nDecreases" +
                     "\r\nArmour" +
                     "\r\npenetration.",
                     Enums.TurretPart.ExplosiveAmmo),
@@ -129,7 +130,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nloaders. " +
                     "\r\nIncreases" +
                     "\r\nRadius." +
-                    "\r\nDecreases"+
+                    "\r\nDecreases" +
                     "\r\ndamage.",
                     Enums.TurretPart.FragAmmo),
                 new ButtonModel("Remove", _textureManager.Remove,
@@ -163,41 +164,53 @@ namespace LudumDare46.Shared.Systems.Gui
             var Screen =
                 new Screen
                 {
-                    Content = new DockPanel
+                    Content = new Canvas()
                     {
-                        Name = "DemoList",
-                        AttachedProperties = {{DockPanel.DockProperty, Dock.Right}},
-                        VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        BackgroundColor = new Color(30, 30, 30),
-                        LastChildFill = true,
-                        Size = new Size(300, _defaultViewportAdapter.ViewportHeight),
                         Items =
                         {
-                            new StackPanel()
+                            new DockPanel
                             {
+                                Name = "DemoList",
+                                AttachedProperties = {{DockPanel.DockProperty, Dock.Right}},
+                                VerticalAlignment = VerticalAlignment.Top,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                BackgroundColor = new Color(30, 30, 30),
+                                LastChildFill = true,
+                                Size = new Size(300, _defaultViewportAdapter.ViewportHeight),
                                 Items =
                                 {
-                                    new Label("Build Menu")
+                                    new StackPanel()
                                     {
-                                        Content = "Build Menu",
-                                        Margin = 5,
-                                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                                        VerticalAlignment = VerticalAlignment.Top,
-                                        HorizontalTextAlignment = HorizontalAlignment.Centre,
-                                        VerticalTextAlignment = VerticalAlignment.Top
-                                    },
+                                        Items =
+                                        {
+                                            new Label("Build Menu")
+                                            {
+                                                Content = "Build Menu",
+                                                Margin = 5,
+                                                HorizontalAlignment = HorizontalAlignment.Stretch,
+                                                VerticalAlignment = VerticalAlignment.Top,
+                                                HorizontalTextAlignment = HorizontalAlignment.Centre,
+                                                VerticalTextAlignment = VerticalAlignment.Top
+                                            },
 
-                                    buttons,
-                                    new TextBox()
-                                    {
-                                        Name = "Description",
-                                        VerticalTextAlignment = VerticalAlignment.Top,
-                                        Size = new Size(280, _defaultViewportAdapter.ViewportHeight)
+                                            buttons,
+                                            new TextBox()
+                                            {
+                                                Name = "Description",
+                                                VerticalTextAlignment = VerticalAlignment.Top,
+                                                Size = new Size(280, _defaultViewportAdapter.ViewportHeight)
+                                            }
+                                        }
                                     }
                                 }
+                            },
+                            new Button()
+                            {
+                                Content = "Continue",
+                                Size = new Size(200, 50),
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100,
+                                    _defaultViewportAdapter.ViewportHeight - 50)
                             }
-                            
                         }
                     }
                 };
@@ -206,7 +219,6 @@ namespace LudumDare46.Shared.Systems.Gui
             {
                 ActiveScreen = Screen
             };
-
         }
 
         public class ButtonModel
@@ -255,9 +267,7 @@ namespace LudumDare46.Shared.Systems.Gui
 
             if (mouseState.WasButtonJustDown(MouseButton.Left))
             {
-
-                    PlacePartAtMouse(SelectedPart);
-
+                PlacePartAtMouse(SelectedPart);
             }
         }
 
@@ -281,6 +291,5 @@ namespace LudumDare46.Shared.Systems.Gui
         {
             //throw new NotImplementedException();
         }
-
     }
 }
