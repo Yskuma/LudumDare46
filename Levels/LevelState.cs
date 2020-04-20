@@ -18,5 +18,7 @@ namespace LudumDare46.Shared.Components
         public bool ContinueDone { get; set; }
         public int SpawnsRemaining { get; set; }
         public string Name { get; set; }
+
+        public string FinishMessage { get; set; }
     }
 }
