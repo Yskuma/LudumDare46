@@ -103,7 +103,7 @@ namespace LudumDare46
             {
                 var turretState = _currentLevel.TurretState;
                 _currentLevel.World.Dispose();
-                _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);
+                _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
             }
 
             // TODO: Add your update logic here
