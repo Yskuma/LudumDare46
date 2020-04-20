@@ -15,10 +15,11 @@ namespace LudumDare46.Shared.Systems
 {
     internal class RenderTextSystem : EntityDrawSystem
     {
-        private GraphicsDevice _graphicsDevice;
-        private readonly SpriteBatch _spriteBatch;
         private ComponentMapper<TextComponent> _textMapper;
         private ComponentMapper<Transform2> _transformMapper;
+
+        private GraphicsDevice _graphicsDevice;
+        private readonly SpriteBatch _spriteBatch;
         private readonly ViewportAdapter _viewportAdapter;
         private readonly TextureManager _textureManager;
 
@@ -39,18 +40,8 @@ namespace LudumDare46.Shared.Systems
             {
                 var transform = _transformMapper.Get(entity);
                 var text = _textMapper.Get(entity);
-               
-                int i = 0;
-                _spriteBatch.DrawString(
-                    spriteFont: _textureManager.FontArial,
-                    text: text.Text,
-                    position: transform.Position,
-                    color: text.Colour,
-                    rotation: transform.Rotation,
-                    origin: Vector2.Zero, 
-                    scale: transform.Scale,
-                    effects: SpriteEffects.None,
-                    layerDepth: 2.0f);
+                
+                _spriteBatch.DrawString(_textureManager.FontArial, text.Text, transform.Position, Color.Red);
             }
 
             _spriteBatch.End();

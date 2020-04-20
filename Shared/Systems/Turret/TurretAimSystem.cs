@@ -103,6 +103,7 @@ namespace LudumDare46.Shared.Systems
 
                         turret.ReloadTimeRemaining = 1.0 / turret.FireRate;
                     }
+
                 }
             }
         }

@@ -64,6 +64,18 @@ namespace LudumDare46.Shared.Systems.Turret
                             HasAmmo = turret.hasAmmo,
                             ArmourPierce = turret.armourPierce
                         });
+
+                        if (!turret.hasAmmo)
+                        {
+                            var text = CreateEntity();
+                            text.Attach(new TextComponent()
+                                {
+                                    Colour = Color.Red,
+                                    Text = $"NO AMMO!"
+                                });
+                                text.Attach(new Transform2(new Vector2(tempx,tempy - 8),0.0f,Vector2.One));
+
+                        }
                         break;
                     case TurretPart.BarrelExtender:
                         e.Attach(new Sprite(_textureManager.BarrelExtender));
