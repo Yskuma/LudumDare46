@@ -5,6 +5,7 @@ using LudumDare46.Shared.Enums;
 using LudumDare46.Shared.Helpers;
 using LudumDare46.Shared.Systems;
 using LudumDare46.Shared.Systems.Bullet;
+using LudumDare46.Shared.Systems.Explosion;
 using LudumDare46.Shared.Systems.Gui;
 using LudumDare46.Shared.Systems.Turret;
 using Microsoft.Xna.Framework;
@@ -49,9 +50,11 @@ namespace LudumDare46.Levels
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
                 .AddSystem(new EnemyCollisionSystem(damageAreas))
-                .AddSystem(new BulletStopSystem())
+                .AddSystem(new BulletStopSystem(textureManager))
                 .AddSystem(new BulletDamageSystem())
                 .AddSystem(new BulletCleanupSystem())
+                .AddSystem(new ExplosionExpansionSystem())
+                .AddSystem(new ExplosionCleanupSystem())
                 .AddSystem(new EnemyDeathSystem())
                 .AddSystem(new MovementSystem())
                 .AddSystem(new TurretAimSystem(textureManager))
@@ -71,6 +74,9 @@ namespace LudumDare46.Levels
                     turretHelper.TurretStats.Add(new TurretStat(x, y, TurretPart.Empty));
                 }
             }
+
+            var t = world.CreateEntity();
+
 
             var level = new Level()
             {
