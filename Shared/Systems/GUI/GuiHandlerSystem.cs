@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Enums;
 using LudumDare46.Shared.Helpers;
 using Microsoft.Xna.Framework;
@@ -27,6 +28,7 @@ namespace LudumDare46.Shared.Systems.Gui
         private readonly ContentManager _contentManager;
         private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
+        private LevelState _levelState;
 
         private List<ButtonModel> buttonModels;
 
@@ -34,8 +36,9 @@ namespace LudumDare46.Shared.Systems.Gui
 
         private TurretHelper _turretHelper;
 
-        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper)
+        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
+            GuiSpriteBatchRenderer guiRenderer,
+            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper, LevelState levelState)
         {
             _graphicsDeviceManager = graphics;
             _defaultViewportAdapter = viewport;
@@ -43,6 +46,7 @@ namespace LudumDare46.Shared.Systems.Gui
             _contentManager = contentManager;
             _textureManager = textureManager;
             _turretHelper = turretHelper;
+            _levelState = levelState;
         }
 
         public void Initialize(World world)
@@ -55,14 +59,14 @@ namespace LudumDare46.Shared.Systems.Gui
 
             buttonModels = new List<ButtonModel>()
             {
-                new ButtonModel("BarrelEnd", 
+                new ButtonModel("BarrelEnd",
                     _textureManager.BarrelEnd,
                     "Barrel End" +
                     "\r\n\r\nBullets" +
                     "\r\ncome out of" +
                     "\r\nhere.",
                     Enums.TurretPart.Turret),
-                new ButtonModel("BarrelExtender", 
+                new ButtonModel("BarrelExtender",
                     _textureManager.BarrelExtender,
                     "Extender" +
                     "\r\n\r\nPlace to" +
@@ -73,7 +77,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nreduces" +
                     "\r\nrate of fire.",
                     Enums.TurretPart.BarrelExtender),
-                new ButtonModel("BeltFeed", 
+                new ButtonModel("BeltFeed",
                     _textureManager.BeltFeed,
                     "Belt Feed" +
                     "\r\n\r\nFeeds ammo" +
@@ -82,7 +86,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nbarrel end" +
                     "\r\nor extender.",
                     Enums.TurretPart.BeltFeed),
-                new ButtonModel("Loader", 
+                new ButtonModel("Loader",
                     _textureManager.Loader,
                     "Ammo Loader" +
                     "\r\n\r\nFeeds ammo" +
@@ -94,18 +98,18 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nIncreases fire" +
                     "\r\nrate.",
                     Enums.TurretPart.AutoLoader),
-                new ButtonModel("AmmoAP", 
+                new ButtonModel("AmmoAP",
                     _textureManager.AmmoAP,
                     "AP Ammo Box" +
-                "\r\n\r\nSupplies" +
-                "\r\nArmour piercing" +
-                "\r\nrounds to " +
-                "\r\nloaders. " +
-                "\r\nIncreases" +
-                "\r\nArmour" +
-                "\r\npenetration." +
-                "\r\nIncreases"+
-                "\r\ndamage.",
+                    "\r\n\r\nSupplies" +
+                    "\r\nArmour piercing" +
+                    "\r\nrounds to " +
+                    "\r\nloaders. " +
+                    "\r\nIncreases" +
+                    "\r\nArmour" +
+                    "\r\npenetration." +
+                    "\r\nIncreases" +
+                    "\r\ndamage.",
                     Enums.TurretPart.APAmmo),
                 new ButtonModel("AmmoExp", _textureManager.AmmoExp,
                     "Explosive" +
@@ -116,7 +120,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nloaders. " +
                     "\r\nIncreases" +
                     "\r\nRadius." +
-                    "\r\nDecreases"+
+                    "\r\nDecreases" +
                     "\r\nArmour" +
                     "\r\npenetration.",
                     Enums.TurretPart.ExplosiveAmmo),
@@ -129,7 +133,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nloaders. " +
                     "\r\nIncreases" +
                     "\r\nRadius." +
-                    "\r\nDecreases"+
+                    "\r\nDecreases" +
                     "\r\ndamage.",
                     Enums.TurretPart.FragAmmo),
                 new ButtonModel("Remove", _textureManager.Remove,
@@ -159,6 +163,17 @@ namespace LudumDare46.Shared.Systems.Gui
                     BackgroundColor = Color.White
                 });
             }
+
+            buttons.Items.Add(new Button()
+            {
+                Name = "EndBuild",
+                Size = new Size(64, 64),
+                Margin = 5,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Top,
+                BackgroundColor = Color.Black,
+                Content = "End"
+            });
 
             var Screen =
                 new Screen
@@ -197,7 +212,6 @@ namespace LudumDare46.Shared.Systems.Gui
                                     }
                                 }
                             }
-                            
                         }
                     }
                 };
@@ -206,7 +220,6 @@ namespace LudumDare46.Shared.Systems.Gui
             {
                 ActiveScreen = Screen
             };
-
         }
 
         public class ButtonModel
@@ -248,6 +261,12 @@ namespace LudumDare46.Shared.Systems.Gui
                 }
             }
 
+            var endButton = _guiSystem.ActiveScreen.FindControl<Button>("EndBuild");
+            if (endButton != null && endButton.IsPressed)
+            {
+                _levelState.BuildDone = true;
+            }
+
             if (mouseState.WasButtonJustDown(MouseButton.Right))
             {
                 SelectedPart = TurretPart.Empty;
@@ -255,9 +274,7 @@ namespace LudumDare46.Shared.Systems.Gui
 
             if (mouseState.WasButtonJustDown(MouseButton.Left))
             {
-
-                    PlacePartAtMouse(SelectedPart);
-
+                PlacePartAtMouse(SelectedPart);
             }
         }
 
@@ -281,6 +298,5 @@ namespace LudumDare46.Shared.Systems.Gui
         {
             //throw new NotImplementedException();
         }
-
     }
 }
