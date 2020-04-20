@@ -43,7 +43,7 @@ namespace LudumDare46.Levels
                     fireRate = 1,
                     radius = 1,
                     physicalDamage = 1,
-                    range = 400,
+                    range = 1,
                     armourPierce = 1,
                     newPart = true
                 });
@@ -64,7 +64,7 @@ namespace LudumDare46.Levels
                     fireRate = 1,
                     radius = 1,
                     physicalDamage = 1,
-                    range = 400,
+                    range = 1,
                     armourPierce = 1,
                     newPart = true
                 });
@@ -96,7 +96,7 @@ namespace LudumDare46.Levels
                 turret.physicalDamage = turret.physicalDamage * 1;
                 turret.radius = turret.radius > 1 ? turret.radius * 30 : 0;
                 turret.fireRate = turret.fireRate * 0.2f;
-                turret.range = turret.range * 20;
+                turret.range = turret.range * 100;
             }
         }
 
