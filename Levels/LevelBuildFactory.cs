@@ -55,10 +55,11 @@ namespace LudumDare46.Levels
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
                 .AddSystem(new TurretSpawnSystem(textureManager, turretState))
-                .AddSystem(new BuildGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper,state, buildAreas));
+                .AddSystem(new BuildGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretState,levelState, buildAreas));
 
             var world = worldBuilder.Build();
 
+            
             for (int x = 45; x < 63; x++)
             {
                 for (int y = 4; y < 34; y++)
@@ -66,6 +67,7 @@ namespace LudumDare46.Levels
                     turretState.TurretStats.Add(new TurretStat(x, y, TurretPart.Empty));
                 }
             }
+            
 
             var level = new Level()
             {

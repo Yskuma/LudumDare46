@@ -39,7 +39,7 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public BuildGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
             GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper,
+            ContentManager contentManager, TextureManager textureManager, TurretState turretState,
             LevelState levelState, List<Rectangle> buildAreas)
         {
             _graphicsDeviceManager = graphics;

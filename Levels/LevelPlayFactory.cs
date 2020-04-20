@@ -27,7 +27,7 @@ namespace LudumDare46.Levels
             var map = contentManager.Load<TiledMap>("Level01");
 
             var areaLayer = map.ObjectLayers.FirstOrDefault(r => r.Name == "Areas");
-
+            turretState.TurretStats = turretState.TurretStats.Where(r => r.turretPart != TurretPart.Empty).ToList();
             turretState.TurretStats.ForEach(r => r.newPart = true);
 
             var levelState = new LevelState()
@@ -62,21 +62,11 @@ namespace LudumDare46.Levels
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
                 .AddSystem(new TurretSpawnSystem(textureManager, turretState))
-             .AddSystem(new PlayGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper, state));
+             .AddSystem(new PlayGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretState, levelState));
 
 
             var world = worldBuilder.Build();
-
-            for (int x = 45; x < 63; x++)
-            {
-                for (int y = 4; y < 34; y++)
-                {
-                    turretState.TurretStats.Add(new TurretStat(x, y, TurretPart.Empty));
-                }
-            }
-
             var t = world.CreateEntity();
-
 
             var level = new Level()
             {
