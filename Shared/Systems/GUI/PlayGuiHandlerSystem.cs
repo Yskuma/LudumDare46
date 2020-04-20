@@ -82,7 +82,7 @@ namespace LudumDare46.Shared.Systems.Gui
                                 Size = new Size(500, 50),
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 250, 10)
                             },
-                            new Label(_levelState.BuildingHealth.ToString("n0"))
+                            new Label($"{_levelState.BuildingHealth:n0}")
                             {
                                 Name = "HealthText",
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 35, 10),
@@ -170,7 +170,7 @@ namespace LudumDare46.Shared.Systems.Gui
             var healthtext = _guiSystem.ActiveScreen.FindControl<Label>("HealthText");
             if (healthtext != null)
             {
-                healthtext.Content = _levelState.BuildingHealth.ToString("n0");
+                healthtext.Content = $"{_levelState.BuildingHealth:n0}";
             }
 
             var restartButton = _guiSystem.ActiveScreen.FindControl<Button>("Restart");
