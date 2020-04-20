@@ -90,7 +90,7 @@ namespace LudumDare46
             _soundManager = new SoundManager(Content);
 
             _blackRectangle = new Texture2D(GraphicsDevice, 1, 1);
-            _blackRectangle.SetData(new[] {Color.Red});
+            _blackRectangle.SetData(new[] {Color.Black});
 
             //_guiMain = new GuiHandlerSystem(_graphics, _boxingViewportAdapter, _guiSpriteBatchRenderer, Content, _textureManager);
             //_guiMain.LoadContent();

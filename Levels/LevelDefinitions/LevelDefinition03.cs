@@ -24,14 +24,14 @@ namespace LudumDare46.Levels.LevelDefinitions
                 .Select(r => new EnemySpawnItem()
                 {
                     SpawnTime = r,
-                    Enemy = helper.Man()
+                    Enemy = helper.Car()
                 }));
 
             list.AddRange(new []{20,22,24,26,28}
                 .Select(r => new EnemySpawnItem()
                 {
                     SpawnTime = r,
-                    Enemy = helper.Car()
+                    Enemy = helper.Truck()
                 }));
 
             list.Add(new EnemySpawnItem()

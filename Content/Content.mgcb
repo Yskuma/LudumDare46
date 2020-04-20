@@ -72,6 +72,11 @@
 /processor:TiledMapProcessor
 /build:Level01.tmx
 
+#begin Level02.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Level02.tmx
+
 #begin Music/Chillstep_1.wav
 /importer:WavImporter
 /processor:SongProcessor
@@ -124,6 +129,23 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:roguelikeCity_transparent.png
+
+#begin roguelikeDungeon_tiles.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:roguelikeDungeon_tiles.tsx
+
+#begin roguelikeDungeon_transparent.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:roguelikeDungeon_transparent.png
 
 #begin roguelikeSheet_tiles.tsx
 /importer:TiledMapTilesetImporter
