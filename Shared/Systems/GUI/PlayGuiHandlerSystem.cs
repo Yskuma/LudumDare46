@@ -131,9 +131,7 @@ namespace LudumDare46.Shared.Systems.Gui
                     {
                         Items =
                         {
-                            new Label("We defended the pig" +
-                                      "\r\ntime to move it to a" + 
-                                      "\r\nnew location...")
+                            new Label(_levelState.FinishMessage)
                             {
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 200, _defaultViewportAdapter.ViewportHeight/2 - 110),
                                 Size = new Size(400, 100),

@@ -47,7 +47,8 @@ namespace LudumDare46.Levels
                 IsBuildStage = false,
                 LevelNum = 1, 
                 BuildingHealth = 10f,
-                Name =  levelDefinition.Name
+                Name =  levelDefinition.Name,
+                FinishMessage = levelDefinition.FinishMessage
             };
 
             var spawnAreas = areaLayer.Objects

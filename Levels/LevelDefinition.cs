@@ -11,6 +11,10 @@ namespace LudumDare46.Levels
         public string Map { get; set; }
         public int Resources { get; set; }
 
+        public string FinishMessage { get; set; } = "We defended the pig" +
+                                                    "\r\ntime to move it to a" +
+                                                    "\r\nnew location...";
+
         public List<EnemySpawnItem> Enemies { get; set; }
     }
 }
