@@ -18,6 +18,8 @@ namespace LudumDare46.Shared.Systems
         private readonly LevelState _levelState;
         private ComponentMapper<EnemyComponent> _enemyMapper;
 
+        private float _winTime = 2.0f;
+
         public LevelWonSystem(LevelState levelState) : base(
             Aspect.All(typeof(EnemyComponent)))
         {
@@ -33,7 +35,11 @@ namespace LudumDare46.Shared.Systems
         {
             if (ActiveEntities.IsEmpty && _levelState.SpawnsRemaining <= 0)
             {
-                _levelState.GameWon = true;
+                _winTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_winTime <= 0)
+                {
+                    _levelState.GameWon = true;
+                }
             }
         }
     }
