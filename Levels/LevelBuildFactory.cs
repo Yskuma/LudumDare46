@@ -35,7 +35,8 @@ namespace LudumDare46.Levels
             {
                 IsPlayStage = false,
                 IsBuildStage = true,
-                LevelNum = 1
+                LevelNum = 1,
+                Name =  levelDefinition.Name
             };
 
             var spawnAreas = areaLayer.Objects
