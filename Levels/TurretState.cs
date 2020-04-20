@@ -27,27 +27,22 @@ namespace LudumDare46.Levels
             {
                 var currentPart = grid.First().turretPart;
 
-                if (currentPart == TurretPart.Empty || part == TurretPart.Empty)
+                TurretStats.Remove(grid.First());
+
+                TurretStats.Add(new TurretStat
                 {
-                    TurretStats.Remove(grid.First());
-
-                    TurretStats.Add(new TurretStat
-                    {
-                        x = location.X,
-                        y = location.Y,
-                        turretPart = part,
-                        hasAmmo = false,
-                        fireRate = 1,
-                        radius = 1,
-                        physicalDamage = 1,
-                        range = 1,
-                        armourPierce = 1,
-                        newPart = true
-                    });
-                    return true;
-                }
-
-                return false;
+                    x = location.X,
+                    y = location.Y,
+                    turretPart = part,
+                    hasAmmo = false,
+                    fireRate = 1,
+                    radius = 1,
+                    physicalDamage = 1,
+                    range = 1,
+                    armourPierce = 1,
+                    newPart = true
+                });
+                return true;
             }
 
             TurretStats.Add(new TurretStat
@@ -279,12 +274,20 @@ namespace LudumDare46.Levels
 
             foreach (var computer in targetingComputers)
             {
-                var turret = TurretStats.First(t =>
+                var turrets = TurretStats.Where(t =>
                     (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
-                     || t.turretPart == Shared.Enums.TurretPart.Turret)
+                     || t.turretPart == Shared.Enums.TurretPart.Turret
+                     || t.turretPart == Shared.Enums.TurretPart.TargetingComputer)
                     && (
                         (t.x == computer.x - 1 && t.y == computer.y)
                     ));
+
+                if (!turrets.Any())
+                {
+                    continue;
+                }
+
+                var turret = turrets.First();
 
                 turret.physicalDamage =
                     turret.physicalDamage * computer.physicalDamage;
@@ -306,12 +309,19 @@ namespace LudumDare46.Levels
 
             foreach (var extender in barrelExtenders)
             {
-                var turret = TurretStats.First(t =>
+                var turrets = TurretStats.Where(t =>
                     (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
                      || t.turretPart == Shared.Enums.TurretPart.Turret)
                     && (
                         (t.x == extender.x - 1 && t.y == extender.y)
                     ));
+
+                if (!turrets.Any())
+                {
+                    continue;
+                }
+
+                var turret = turrets.First();
 
                 turret.physicalDamage =
                     turret.physicalDamage * extender.physicalDamage * 1.5f;

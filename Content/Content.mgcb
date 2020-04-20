@@ -84,6 +84,16 @@
 /processor:TiledMapProcessor
 /build:Level02.tmx
 
+#begin Level03.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Level03.tmx
+
+#begin Level04.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Level04.tmx
+
 #begin loader.png
 /importer:TextureImporter
 /processor:TextureProcessor

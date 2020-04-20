@@ -9,7 +9,7 @@ namespace LudumDare46.Levels.LevelDefinitions
         public LevelDefinition03()
         {
             Name = "Level 03";
-            Map = "Level01";
+            Map = "Level03";
             Resources = 100;
             Enemies = GenerateEnemies();
         }
