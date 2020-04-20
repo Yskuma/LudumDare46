@@ -2,7 +2,6 @@
 using LudumDare46.Shared;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Enums;
-using LudumDare46.Shared.Helpers;
 using LudumDare46.Shared.Systems;
 using LudumDare46.Shared.Systems.Bullet;
 using LudumDare46.Shared.Systems.Gui;
@@ -28,9 +27,9 @@ namespace LudumDare46.Levels
 
             var areaLayer = map.ObjectLayers.FirstOrDefault(r => r.Name == "Areas");
 
-            var turretHelper = new TurretHelper();
+            var turretState = new TurretState();
 
-            var state = new LevelState()
+            var levelState = new LevelState()
             {
                 IsPlayStage = false,
                 IsBuildStage = true,
@@ -55,23 +54,26 @@ namespace LudumDare46.Levels
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager,
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
-                .AddSystem(new TurretSpawnSystem(textureManager, turretHelper))
-                .AddSystem(new BuildGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper,state, buildAreas));
+                .AddSystem(new TurretSpawnSystem(textureManager, turretState))
+                .AddSystem(new BuildGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretState,levelState, buildAreas));
 
             var world = worldBuilder.Build();
 
+            
             for (int x = 45; x < 63; x++)
             {
                 for (int y = 4; y < 34; y++)
                 {
-                    turretHelper.TurretStats.Add(new TurretStat(x, y, TurretPart.Empty));
+                    turretState.TurretStats.Add(new TurretStat(x, y, TurretPart.Empty));
                 }
             }
+            
 
             var level = new Level()
             {
                 World = world,
-                State = state
+                LevelState = levelState,
+                TurretState = turretState
             };
         
             return level;

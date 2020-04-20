@@ -2,23 +2,27 @@
 using System.Diagnostics;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Components.BulletComponents;
+using LudumDare46.Shared.Components.explosionComponents;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
+using MonoGame.Extended.Sprites;
 using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.Systems.Bullet
 {
     internal class BulletStopSystem : EntityUpdateSystem
     {
+        private readonly TextureManager _textureManager;
         private ComponentMapper<BulletComponent> _bulletMapper;
         private ComponentMapper<Transform2> _transformMapper;
         private ComponentMapper<MovementComponent> _movementMapper;
 
-        public BulletStopSystem() : base(
+        public BulletStopSystem(TextureManager textureManager) : base(
             Aspect.All(typeof(BulletComponent), typeof(Transform2), typeof(MovementComponent)))
         {
+            _textureManager = textureManager;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -45,6 +49,20 @@ namespace LudumDare46.Shared.Systems.Bullet
                     movement.Speed = Vector2.Zero;
                     transform.Position = new Vector2(bullet.TargetPosition.X, bullet.TargetPosition.Y);
                     bullet.AtTarget = true;
+
+                    var explosion = CreateEntity();
+                    explosion.Attach(new Transform2(
+                        new Vector2(transform.Position.X, transform.Position.Y),
+                        0.0F,
+                        Vector2.Zero
+                        ));
+                    explosion.Attach(new Sprite(_textureManager.BulletExplosion));
+                    explosion.Attach(new ExplosionComponent()
+                    {
+                        CurrentRadius = 0.0f,
+                        ExplosionSpeed = 100.0f,
+                        MaxRadius = bullet.Radius
+                    });
                 }
 
             }

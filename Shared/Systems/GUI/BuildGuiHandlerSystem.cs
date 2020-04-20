@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using LudumDare46.Levels;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Enums;
-using LudumDare46.Shared.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -35,11 +35,11 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public Enums.TurretPart SelectedPart;
 
-        private TurretHelper _turretHelper;
+        private TurretState _turretState;
 
         public BuildGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
             GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper,
+            ContentManager contentManager, TextureManager textureManager, TurretState turretState,
             LevelState levelState, List<Rectangle> buildAreas)
         {
             _graphicsDeviceManager = graphics;
@@ -47,7 +47,7 @@ namespace LudumDare46.Shared.Systems.Gui
             _guiSpriteBatchRenderer = guiRenderer;
             _contentManager = contentManager;
             _textureManager = textureManager;
-            _turretHelper = turretHelper;
+            _turretState = turretState;
             _levelState = levelState;
             _buildAreas = buildAreas;
         }
@@ -311,7 +311,7 @@ namespace LudumDare46.Shared.Systems.Gui
                 X = (int) Math.Round((float) (mouseState.Position.X - 8) / 16),
                 Y = (int) Math.Round((float) (mouseState.Position.Y - 8) / 16)
             };
-            _turretHelper.AddPart(currentTile, SelectedPart);
+            _turretState.AddPart(currentTile, SelectedPart);
         }
 
         public void Draw(GameTime gameTime)
