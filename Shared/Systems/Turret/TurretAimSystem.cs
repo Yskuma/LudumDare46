@@ -22,11 +22,13 @@ namespace LudumDare46.Shared.Systems
         private ComponentMapper<MovementComponent> _movementMapper;
 
         private readonly TextureManager _textureManager;
+        private readonly SoundManager _soundManager;
 
-        public TurretAimSystem(TextureManager textureManager) : base(
+        public TurretAimSystem(TextureManager textureManager, SoundManager soundManager) : base(
             Aspect.One(typeof(TurretComponent), typeof(EnemyComponent)).All(typeof(Transform2)))
         {
             _textureManager = textureManager;
+            _soundManager = soundManager;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -96,6 +98,8 @@ namespace LudumDare46.Shared.Systems
                         bullet.Attach(new Transform2(turretTransform.Position.X, turretTransform.Position.Y));
                         var mov = Vector2.Normalize(targetPosition - turretTransform.Position) * bulletSpeed;
                         bullet.Attach(new MovementComponent(mov));
+
+                        _soundManager.Hit3.Play(0.2f, 0.0f, 0.0f);
 
                         turret.ReloadTimeRemaining = 1.0 / turret.FireRate;
                     }

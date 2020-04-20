@@ -17,7 +17,7 @@ namespace LudumDare46.Levels
 {
     public class LevelBuildFactory
     {
-        public Level Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager,
+        public Level Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager,SoundManager soundManager,
             ViewportAdapter viewportAdapter, ContentManager contentManager)
         {
             var guiSpriteBatchRenderer = new GuiSpriteBatchRenderer(graphicsDeviceManager.GraphicsDevice, () => Matrix.Identity);

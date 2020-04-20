@@ -15,14 +15,16 @@ namespace LudumDare46.Shared.Systems.Bullet
     internal class BulletStopSystem : EntityUpdateSystem
     {
         private readonly TextureManager _textureManager;
+        private readonly SoundManager _soundManager;
         private ComponentMapper<BulletComponent> _bulletMapper;
         private ComponentMapper<Transform2> _transformMapper;
         private ComponentMapper<MovementComponent> _movementMapper;
 
-        public BulletStopSystem(TextureManager textureManager) : base(
+        public BulletStopSystem(TextureManager textureManager, SoundManager soundManager) : base(
             Aspect.All(typeof(BulletComponent), typeof(Transform2), typeof(MovementComponent)))
         {
             _textureManager = textureManager;
+            _soundManager = soundManager;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -63,6 +65,9 @@ namespace LudumDare46.Shared.Systems.Bullet
                         ExplosionSpeed = 500.0f,
                         MaxRadius = bullet.Radius
                     });
+
+                    _soundManager.Explosion4.Play(0.2f, 0.0f, 0.0f);
+
                 }
 
             }

@@ -18,7 +18,7 @@ namespace LudumDare46.Levels
 {
     public class LevelPlayFactory
     {
-        public Level Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager,
+        public Level Build(GraphicsDeviceManager graphicsDeviceManager, TextureManager textureManager, SoundManager soundManager,
             ViewportAdapter viewportAdapter, ContentManager contentManager, TurretState turretState)
         {
             var guiSpriteBatchRenderer = new GuiSpriteBatchRenderer(graphicsDeviceManager.GraphicsDevice, () => Matrix.Identity);
@@ -49,15 +49,15 @@ namespace LudumDare46.Levels
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
-                .AddSystem(new EnemyCollisionSystem(damageAreas, levelState))
-                .AddSystem(new BulletStopSystem(textureManager))
+                .AddSystem(new EnemyCollisionSystem(textureManager, soundManager, damageAreas, levelState))
+                .AddSystem(new BulletStopSystem(textureManager, soundManager))
                 .AddSystem(new BulletDamageSystem())
                 .AddSystem(new BulletCleanupSystem())
                 .AddSystem(new ExplosionExpansionSystem())
                 .AddSystem(new ExplosionCleanupSystem())
                 .AddSystem(new EnemyDeathSystem())
                 .AddSystem(new MovementSystem())
-                .AddSystem(new TurretAimSystem(textureManager))
+                .AddSystem(new TurretAimSystem(textureManager, soundManager))
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager,
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
