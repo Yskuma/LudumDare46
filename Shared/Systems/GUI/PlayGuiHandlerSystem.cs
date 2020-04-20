@@ -31,10 +31,12 @@ namespace LudumDare46.Shared.Systems.Gui
         private LevelState _levelState;
         private Screen _healthScreen;
         private Screen _gameOverScreen;
+        private Screen _gameWinScreen;
 
         public Enums.TurretPart SelectedPart;
 
         private TurretState _turretState;
+        
 
 
         public PlayGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
@@ -112,6 +114,37 @@ namespace LudumDare46.Shared.Systems.Gui
                     }
                 };
 
+            _gameWinScreen =
+                new Screen
+                {
+                    Content = new Canvas()
+                    {
+                        Items =
+                        {
+                            new Label("We defended the pig" +
+                                      "\r\ntime to move it to a" + 
+                                      "\r\nnew location...")
+                            {
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 200, _defaultViewportAdapter.ViewportHeight/2 - 110),
+                                Size = new Size(400, 100),
+                                HorizontalTextAlignment = HorizontalAlignment.Centre,
+                                VerticalTextAlignment = VerticalAlignment.Centre
+                            },
+                            new Button()
+                            {
+                                Content = "Continue",
+                                Name = "Continue",
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 80, _defaultViewportAdapter.ViewportHeight/2 + 30),
+                                Size = new Size(160, 50),
+                                HorizontalTextAlignment = HorizontalAlignment.Centre,
+                                VerticalTextAlignment = VerticalAlignment.Centre
+                            }
+                        },
+                        BackgroundColor = new Color(30, 30, 30),
+                        Size = new Size(_defaultViewportAdapter.ViewportWidth, _defaultViewportAdapter.ViewportHeight)
+                    }
+                };
+
             _guiSystem = new GuiSystem(_defaultViewportAdapter, _guiSpriteBatchRenderer)
             {
                 ActiveScreen = _healthScreen
@@ -141,9 +174,21 @@ namespace LudumDare46.Shared.Systems.Gui
                 }
             }
 
+            var continueButton = _guiSystem.ActiveScreen.FindControl<Button>("Continue");
+            if (continueButton != null && continueButton.IsPressed)
+                {
+                    _levelState.ContinueDone = true;
+                }
+            
+
             if (_levelState.GameOver)
             {
                 _guiSystem.ActiveScreen = _gameOverScreen;
+            }
+
+            if (_levelState.GameWon)
+            {
+                _guiSystem.ActiveScreen = _gameWinScreen;
             }
 
             _guiSystem.Update(gameTime);

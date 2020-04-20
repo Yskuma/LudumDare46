@@ -57,7 +57,7 @@ namespace LudumDare46.Levels
 
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
-                .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas, enemyList))
+                .AddSystem(new EnemySpawnSystem(textureManager, levelState, spawnAreas, enemyList))
                 .AddSystem(new EnemyCollisionSystem(textureManager, soundManager, damageAreas, levelState))
                 .AddSystem(new BulletStopSystem(textureManager, soundManager))
                 .AddSystem(new BulletDamageSystem())
@@ -71,7 +71,8 @@ namespace LudumDare46.Levels
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
                 .AddSystem(new TurretSpawnSystem(textureManager, turretState))
-             .AddSystem(new PlayGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretState, levelState));
+                .AddSystem(new PlayGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretState, levelState))
+                .AddSystem(new LevelWonSystem(levelState));
 
 
             var world = worldBuilder.Build();

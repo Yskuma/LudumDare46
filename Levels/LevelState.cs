@@ -14,5 +14,8 @@ namespace LudumDare46.Shared.Components
         public bool RestartDone { get; set; }
         public bool GameOver { get; set; }
         public float BuildingHealth { get; set; }
+        public bool GameWon { get; set; }
+        public bool ContinueDone { get; set; }
+        public int SpawnsRemaining { get; set; }
     }
 }

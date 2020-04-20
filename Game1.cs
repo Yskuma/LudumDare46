@@ -117,6 +117,13 @@ namespace LudumDare46
                 _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, _levelDefinitions[_currentLevelNum]);
             }
 
+            if (_currentLevel.LevelState.ContinueDone)
+            {
+                _currentLevelNum = (_currentLevelNum + 1) % _levelDefinitions.Length;
+                _currentLevel.World.Dispose();
+                _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content, _levelDefinitions[_currentLevelNum]);
+            }
+
             // TODO: Add your update logic here
             _currentLevel.World.Update(gameTime);
 

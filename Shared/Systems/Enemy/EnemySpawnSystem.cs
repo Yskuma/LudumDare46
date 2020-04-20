@@ -17,6 +17,7 @@ namespace LudumDare46.Shared.Systems
     class EnemySpawnSystem : EntityUpdateSystem
     {
         private readonly TextureManager _textureManager;
+        private readonly LevelState _levelState;
 
         private double _currentTime = 0;
 
@@ -28,12 +29,13 @@ namespace LudumDare46.Shared.Systems
 
         private Dictionary<EnemyAppearance, Texture2D> _enemyTexDict = new Dictionary<EnemyAppearance, Texture2D>();
 
-        public EnemySpawnSystem(TextureManager textureManager, List<Rectangle> spawnAreas, List<EnemySpawnItem> spawnList) : base(new AspectBuilder())
+        public EnemySpawnSystem(TextureManager textureManager, LevelState levelState, List<Rectangle> spawnAreas, List<EnemySpawnItem> spawnList) : base(new AspectBuilder())
         {
             _textureManager = textureManager;
+            _levelState = levelState;
             _spawnAreas = spawnAreas;
             _spawnList = spawnList.OrderBy(r => r.SpawnTime).ToList();
-            //_enemyFactory = new EnemyFactory();
+
             _random = new Random(1983);
 
             _enemyTexDict.Add(EnemyAppearance.Man, _textureManager.SciFiUnit01);
@@ -69,6 +71,8 @@ namespace LudumDare46.Shared.Systems
 
                 _spawnList.RemoveAt(0);
             }
+
+            _levelState.SpawnsRemaining = _spawnList.Count;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
