@@ -94,7 +94,7 @@ namespace LudumDare46.Levels
             foreach (var turret in turrets)
             {
                 turret.physicalDamage = turret.physicalDamage * 15;
-                turret.radius = turret.radius > 1 ? turret.radius * 25 : 1;
+                turret.radius = turret.radius > 1 ? turret.radius * 25 : 10;
                 turret.fireRate = turret.fireRate * 0.5f;
                 turret.range = (turret.range * 100) + 300;
                 turret.armourPierce = turret.armourPierce;
