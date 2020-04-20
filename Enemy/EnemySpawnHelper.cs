@@ -12,7 +12,7 @@ namespace LudumDare46.Enemy
                 {
                     Appearance = EnemyAppearance.Man,
                     Speed = 30,
-                    Armour = 0,
+                    Armour = 1,
                     HP = 5,
                     Damage = 1
                 };
