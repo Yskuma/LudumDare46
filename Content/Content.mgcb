@@ -72,6 +72,24 @@
 /processor:TiledMapProcessor
 /build:Level01.tmx
 
+#begin Music/Flowing Rocks.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Flowing Rocks.ogg
+
+#begin Music/Mission Plausible.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Mission Plausible.ogg
+
+#begin Music/Time Driving.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Time Driving.ogg
+
 #begin roguelikeCity_tiles.tsx
 /importer:TiledMapTilesetImporter
 /processor:TiledMapTilesetProcessor
