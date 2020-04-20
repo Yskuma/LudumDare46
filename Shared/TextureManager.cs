@@ -81,7 +81,9 @@ namespace LudumDare46.Shared
             BarrelEnd = new TextureRegion2D(Turret, 0, -8, 24, 32);
             BeltFeed = new TextureRegion2D(RoguelikeCity, 22 * 17, 9 * 17, 16, 16);
             BarrelExtender = new TextureRegion2D(RoguelikeCity, 10 * 17, 2 * 17, 16, 16);
-            Loader = new TextureRegion2D(RoguelikeCity, 2 * 17, 16 * 17, 16, 16);
+            //Loader = new TextureRegion2D(RoguelikeCity, 2 * 17, 16 * 17, 16, 16);
+
+            Loader = new TextureRegion2D(_contentManager.Load<Texture2D>("loader"),0,0,16,16);
             AmmoExp = new TextureRegion2D(RoguelikeCity, 10 * 17, 18 * 17, 16, 16);
             AmmoFrag = new TextureRegion2D(RoguelikeCity, 11 * 17, 18 * 17, 16, 16);
             AmmoAP = new TextureRegion2D(RoguelikeCity, 9 * 17, 18 * 17, 16, 16);

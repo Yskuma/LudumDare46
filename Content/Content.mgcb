@@ -77,6 +77,18 @@
 /processor:TiledMapProcessor
 /build:Level02.tmx
 
+#begin loader.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:loader.png
+
 #begin Level04.tmx
 /importer:TiledMapImporter
 /processor:TiledMapProcessor
