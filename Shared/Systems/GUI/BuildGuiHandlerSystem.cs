@@ -229,7 +229,18 @@ namespace LudumDare46.Shared.Systems.Gui
                                 Size = new Size(200, 50),
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100,
                                     _defaultViewportAdapter.ViewportHeight - 50)
-                            }
+                            }                            
+                            ,
+                            new Label("Level")
+                            {
+                            Content = _levelState.Name,
+                            Size = new Size(200, 50),
+                            Position = new Point(_defaultViewportAdapter.ViewportWidth - 200, 10),
+                            HorizontalAlignment = HorizontalAlignment.Stretch,
+                            VerticalAlignment = VerticalAlignment.Top,
+                            HorizontalTextAlignment = HorizontalAlignment.Centre,
+                            VerticalTextAlignment = VerticalAlignment.Top
+                        },
                         }
                     }
                 };

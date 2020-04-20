@@ -65,17 +65,27 @@ namespace LudumDare46.Shared.Systems.Gui
                     {
                         Items =
                         {
+                            new Label("Level")
+                            {
+                                Content = _levelState.Name,
+                                Size = new Size(200, 50),
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth - 200, 10),
+                                HorizontalAlignment = HorizontalAlignment.Stretch,
+                                VerticalAlignment = VerticalAlignment.Top,
+                                HorizontalTextAlignment = HorizontalAlignment.Centre,
+                                VerticalTextAlignment = VerticalAlignment.Top
+                            },
                             new ProgressBar
                             {
                                 Name = "HealthBar",
                                 Progress = _levelState.BuildingHealth/ 100,
                                 Size = new Size(200, 50),
-                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100, 0)
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100, 10)
                             },
                             new Label(_levelState.BuildingHealth.ToString("n0"))
                             {
                                 Name = "HealthText",
-                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 35, 0),
+                                Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 35, 10),
                                 Size = new Size(70, 50),
                                 HorizontalTextAlignment = HorizontalAlignment.Centre,
                                 VerticalTextAlignment = VerticalAlignment.Centre
