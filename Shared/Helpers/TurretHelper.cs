@@ -1,13 +1,15 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
+using LudumDare46.Shared.Enums;
+using Microsoft.Xna.Framework;
 
 namespace LudumDare46.Shared.Helpers
 {
     public class TurretHelper
     {
-        private int minX = 0;
-        private int minY = 0;
-        private int maxX = 20;
+        private int minX = 40;
+        private int minY = 2;
+        private int maxX = 60;
         private int maxY = 30;
 
         public List<TurretStat> TurretStats;
@@ -15,23 +17,62 @@ namespace LudumDare46.Shared.Helpers
         public TurretHelper()
         {
             TurretStats = new List<TurretStat>();
-            for (int x = minX; x < maxX; x++)
+        }
+
+        public bool AddPart(Point location, TurretPart part)
+        {
+            var grid = TurretStats.Where(t => t.x == location.X && t.y == location.Y);
+
+            if (!grid.Any())
             {
-                for (int y = minY; y < maxY; y++)
-                {
-                    TurretStats.Add(new TurretStat()
-                    {
-                        x = x,
-                        y = y,
-                        turretPart = Enums.TurretPart.Empty,
-                        hasAmmo = false,
-                        fireRate = 1,
-                        radius = 1,
-                        physicalDamage = 1,
-                        range = 10
-                    });
-                }
+                return false;
             }
+
+            var currentPart = grid.First().turretPart;
+
+            if (currentPart == TurretPart.Empty)
+            {
+                TurretStats.Remove(grid.First());
+
+                TurretStats.Add(new TurretStat
+                {
+                    x = location.X,
+                    y = location.Y,
+                    turretPart = part,
+                    hasAmmo = false,
+                    fireRate = 1,
+                    radius = 1,
+                    physicalDamage = 1,
+                    range = 400,
+                    armourPierce = 1,
+                    newPart = true
+                });
+
+                return true;
+            }
+
+            if (currentPart != TurretPart.Empty && part == TurretPart.Empty)
+            {
+                TurretStats.Remove(grid.First());
+
+                TurretStats.Add(new TurretStat
+                {
+                    x = location.X,
+                    y = location.Y,
+                    turretPart = part,
+                    hasAmmo = false,
+                    fireRate = 1,
+                    radius = 1,
+                    physicalDamage = 1,
+                    range = 400,
+                    armourPierce = 1,
+                    newPart = true
+                });
+
+                return true;
+            }
+
+            return false;
         }
 
         public void CalculateDamage()
@@ -185,10 +226,10 @@ namespace LudumDare46.Shared.Helpers
 
             foreach (var belt in beltFeeds)
             {
-                if(!belt.hasAmmo) continue;
+                if (!belt.hasAmmo) continue;
                 var turrets = TurretStats.Where(t =>
                     (t.turretPart == Enums.TurretPart.BarrelExtender
-                    || t.turretPart == Enums.TurretPart.Turret)
+                     || t.turretPart == Enums.TurretPart.Turret)
                     && (
                         (t.x == belt.x - 1 && t.y == belt.y)
                         || (t.x == belt.x + 1 && t.y == belt.y)
@@ -205,7 +246,7 @@ namespace LudumDare46.Shared.Helpers
                     turret.armourPierce =
                         turret.armourPierce * ((belt.armourPierce - 1) / targetCount + 1);
                     turret.fireRate =
-                        turret.fireRate * ((belt.fireRate * - 1) / targetCount + 1);
+                        turret.fireRate * ((belt.fireRate * -1) / targetCount + 1);
                     turret.radius = turret.radius * ((belt.radius - 1) / targetCount + 1);
                     turret.range = turret.range * ((belt.range - 1) / targetCount + 1);
                     turret.hasAmmo = belt.hasAmmo;
@@ -230,15 +271,15 @@ namespace LudumDare46.Shared.Helpers
                         (t.x == extender.x - 1 && t.y == extender.y)
                     ));
 
-                    turret.physicalDamage =
-                        turret.physicalDamage * extender.physicalDamage * 1.1f;
-                    turret.armourPierce =
-                        turret.armourPierce *extender.armourPierce;
-                    turret.fireRate =
-                        turret.fireRate * extender.fireRate * 0.9f;
-                    turret.radius = turret.radius * extender.radius;
-                    turret.range = turret.range * extender.range;
-                    turret.hasAmmo = extender.hasAmmo;
+                turret.physicalDamage =
+                    turret.physicalDamage * extender.physicalDamage * 1.1f;
+                turret.armourPierce =
+                    turret.armourPierce * extender.armourPierce;
+                turret.fireRate =
+                    turret.fireRate * extender.fireRate * 0.9f;
+                turret.radius = turret.radius * extender.radius;
+                turret.range = turret.range * extender.range;
+                turret.hasAmmo = extender.hasAmmo;
             }
         }
     }
@@ -249,10 +290,22 @@ namespace LudumDare46.Shared.Helpers
         public int y;
         public Enums.TurretPart turretPart;
         public bool hasAmmo;
-        public float fireRate;
-        public float radius;
-        public float physicalDamage;
-        public float range;
-        public float armourPierce;
+        public float fireRate = 1;
+        public float radius = 1;
+        public float physicalDamage = 5;
+        public float range = 10;
+        public float armourPierce = 1;
+        public bool newPart = false;
+
+        public TurretStat()
+        {
+        }
+
+        public TurretStat(int x, int y, TurretPart turretPart)
+        {
+            this.x = x;
+            this.y = y;
+            this.turretPart = turretPart;
+        }
     }
 }
