@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using LudumDare46.Enemy;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Components.EnemyComponents;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
@@ -15,38 +18,56 @@ namespace LudumDare46.Shared.Systems
     {
         private readonly TextureManager _textureManager;
 
-        private double _timeUntilNextSpawn = 0;
+        private double _currentTime = 0;
 
         private List<Rectangle> _spawnAreas;
+        private readonly List<EnemySpawnItem> _spawnList;
 
         //private EnemyFactory _enemyFactory;
         private Random _random;
 
-        public EnemySpawnSystem(TextureManager textureManager, List<Rectangle> spawnAreas) : base(new AspectBuilder())
+        private Dictionary<EnemyAppearance, Texture2D> _enemyTexDict = new Dictionary<EnemyAppearance, Texture2D>();
+
+        public EnemySpawnSystem(TextureManager textureManager, List<Rectangle> spawnAreas, List<EnemySpawnItem> spawnList) : base(new AspectBuilder())
         {
             _textureManager = textureManager;
             _spawnAreas = spawnAreas;
+            _spawnList = spawnList.OrderBy(r => r.SpawnTime).ToList();
             //_enemyFactory = new EnemyFactory();
             _random = new Random(1983);
+
+            _enemyTexDict.Add(EnemyAppearance.Man, _textureManager.SciFiUnit01);
+            _enemyTexDict.Add(EnemyAppearance.Car, _textureManager.SciFiUnit06);
+            _enemyTexDict.Add(EnemyAppearance.Truck, _textureManager.SciFiUnit07);
+            _enemyTexDict.Add(EnemyAppearance.APC, _textureManager.SciFiUnit10);
+            _enemyTexDict.Add(EnemyAppearance.Tank, _textureManager.SciFiUnit09);
         }
 
         public override void Update(GameTime gameTime)
         {
-            _timeUntilNextSpawn -= gameTime.ElapsedGameTime.TotalSeconds;
-            if (_timeUntilNextSpawn < 0)
+            _currentTime += gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (_spawnList.Any() && _spawnList[0].SpawnTime <= _currentTime)
             {
+                var spawnEnemy = _spawnList[0].Enemy;
+
                 var spawnIndex = _random.Next(_spawnAreas.Count);
                 var spawnX = (float) (_random.NextDouble() * _spawnAreas[spawnIndex].Width) + _spawnAreas[spawnIndex].X;
                 var spawnY = (float) (_random.NextDouble() * _spawnAreas[spawnIndex].Height) +
                              _spawnAreas[spawnIndex].Y;
 
                 var e = CreateEntity();
-                e.Attach(new Sprite(_textureManager.SciFiUnit06));
                 e.Attach(new Transform2(spawnX, spawnY, 0.0F, 1.0F, 1.0F));
-                e.Attach(new MovementComponent(Vector2.UnitX * 80));
-                e.Attach(new EnemyComponent());
+                e.Attach(new MovementComponent(Vector2.UnitX * spawnEnemy.Speed));
+                e.Attach(new EnemyComponent()
+                {
+                    HP = spawnEnemy.HP,
+                    Armour = spawnEnemy.Armour,
+                    Speed = spawnEnemy.Speed
+                });
+                e.Attach(new Sprite(_enemyTexDict[spawnEnemy.Appearance]));
 
-                _timeUntilNextSpawn = 1;
+                _spawnList.RemoveAt(0);
             }
         }
 

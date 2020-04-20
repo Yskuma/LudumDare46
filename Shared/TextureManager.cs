@@ -28,7 +28,11 @@ namespace LudumDare46.Shared
         public TextureRegion2D RoofEdge { get; set; }
         public TextureRegion2D RoofTile { get; set; }
 
+        public Texture2D SciFiUnit01 { get; set; }
         public Texture2D SciFiUnit06 { get; set; }
+        public Texture2D SciFiUnit07 { get; set; }
+        public Texture2D SciFiUnit09 { get; set; }
+        public Texture2D SciFiUnit10 { get; set; }
 
         public Texture2D Turret { get; set; }
 
@@ -61,7 +65,11 @@ namespace LudumDare46.Shared
             RoofEdge = new TextureRegion2D(RoguelikeSheet, 13 * 17, 17 * 17, 16, 16);
             RoofTile = new TextureRegion2D(RoguelikeSheet, 14 * 17, 17 * 17, 16, 16);
 
+            SciFiUnit01 = _contentManager.Load<Texture2D>("Units/scifiUnit_01");
             SciFiUnit06 = _contentManager.Load<Texture2D>("Units/scifiUnit_06");
+            SciFiUnit07 = _contentManager.Load<Texture2D>("Units/scifiUnit_07");
+            SciFiUnit09 = _contentManager.Load<Texture2D>("Units/scifiUnit_09");
+            SciFiUnit10 = _contentManager.Load<Texture2D>("Units/scifiUnit_10");
 
             Turret = _contentManager.Load<Texture2D>("turret");
             Bullet = _contentManager.Load<Texture2D>("bullet");

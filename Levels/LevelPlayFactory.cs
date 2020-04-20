@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using LudumDare46.Enemy;
 using LudumDare46.Shared;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Enums;
@@ -32,6 +34,11 @@ namespace LudumDare46.Levels
             turretState.TurretStats = turretState.TurretStats.Where(r => r.turretPart != TurretPart.Empty).ToList();
             turretState.TurretStats.ForEach(r => r.newPart = true);
 
+
+            //Copy the enemies in from the level def so we don't change the level def
+            var enemyList = new List<EnemySpawnItem>();
+            enemyList.AddRange(levelDefinition.Enemies);
+
             var levelState = new LevelState()
             {
                 IsPlayStage = true,
@@ -50,7 +57,7 @@ namespace LudumDare46.Levels
 
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
-                .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas))
+                .AddSystem(new EnemySpawnSystem(textureManager, spawnAreas, enemyList))
                 .AddSystem(new EnemyCollisionSystem(textureManager, soundManager, damageAreas, levelState))
                 .AddSystem(new BulletStopSystem(textureManager, soundManager))
                 .AddSystem(new BulletDamageSystem())
