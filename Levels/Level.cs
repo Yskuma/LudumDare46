@@ -10,6 +10,7 @@ namespace LudumDare46.Levels
     {
         public World World { get; set; }
 
-        public LevelState State { get; set; }
+        public LevelState LevelState { get; set; }
+        public TurretState TurretState { get; set; }
     }
 }

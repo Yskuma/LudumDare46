@@ -90,10 +90,11 @@ namespace LudumDare46
                 Exit();
             }
 
-            if (_currentLevel.State.BuildDone)
+            if (_currentLevel.LevelState.BuildDone)
             {
+                var turretState = _currentLevel.TurretState;
                 _currentLevel.World.Dispose();
-                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);;
+                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content, turretState);
             }
 
             // TODO: Add your update logic here

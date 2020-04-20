@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using LudumDare46.Levels;
 using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Components.EnemyComponents;
 using LudumDare46.Shared.Components.TurretComponents;
 using LudumDare46.Shared.Enums;
-using LudumDare46.Shared.Helpers;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Entities;
@@ -19,17 +19,17 @@ namespace LudumDare46.Shared.Systems.Turret
     class TurretSpawnSystem : EntityUpdateSystem
     {
         private readonly TextureManager _textureManager;
-        private TurretHelper _turretHelper;
+        private TurretState _turretState;
         private ComponentMapper<TurretComponent> _turretMapper;
         private ComponentMapper<Transform2> _transformMapper;
         private List<Rectangle> _spawnAreas;
         private Random _random;
 
-        public TurretSpawnSystem(TextureManager textureManager, TurretHelper turretHelper) 
+        public TurretSpawnSystem(TextureManager textureManager, TurretState turretState) 
             : base(Aspect.All(typeof(TurretComponent), typeof(Transform2), typeof(TurretPartComponent)))
         {
             _textureManager = textureManager;
-            _turretHelper = turretHelper;
+            _turretState = turretState;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -40,7 +40,7 @@ namespace LudumDare46.Shared.Systems.Turret
 
         public override void Update(GameTime gameTime)
         {
-            var newTurrets = _turretHelper.TurretStats.Where(t => t.newPart);
+            var newTurrets = _turretState.TurretStats.Where(t => t.newPart);
 
             foreach (var turret in newTurrets)
             {

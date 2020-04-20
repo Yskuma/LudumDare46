@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using LudumDare46.Shared.Enums;
 using Microsoft.Xna.Framework;
 
-namespace LudumDare46.Shared.Helpers
+namespace LudumDare46.Levels
 {
-    public class TurretHelper
+    public class TurretState
     {
         private int minX = 40;
         private int minY = 2;
@@ -14,7 +14,7 @@ namespace LudumDare46.Shared.Helpers
 
         public List<TurretStat> TurretStats;
 
-        public TurretHelper()
+        public TurretState()
         {
             TurretStats = new List<TurretStat>();
         }
@@ -88,11 +88,11 @@ namespace LudumDare46.Shared.Helpers
 
         public void ExplosiveAmmoBox()
         {
-            var ammos = TurretStats.Where(t => t.turretPart == Enums.TurretPart.ExplosiveAmmo);
+            var ammos = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.ExplosiveAmmo);
 
             foreach (var ammo in ammos)
             {
-                var loaders = TurretStats.Where(t => t.turretPart == Enums.TurretPart.AutoLoader
+                var loaders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.AutoLoader
                                                      && (
                                                          (t.x == ammo.x - 1 && t.y == ammo.y)
                                                          || (t.x == ammo.x + 1 && t.y == ammo.y)
@@ -115,11 +115,11 @@ namespace LudumDare46.Shared.Helpers
 
         public void FragAmmoBox()
         {
-            var ammos = TurretStats.Where(t => t.turretPart == Enums.TurretPart.FragAmmo);
+            var ammos = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.FragAmmo);
 
             foreach (var ammo in ammos)
             {
-                var loaders = TurretStats.Where(t => t.turretPart == Enums.TurretPart.AutoLoader
+                var loaders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.AutoLoader
                                                      && (
                                                          (t.x == ammo.x - 1 && t.y == ammo.y)
                                                          || (t.x == ammo.x + 1 && t.y == ammo.y)
@@ -140,11 +140,11 @@ namespace LudumDare46.Shared.Helpers
 
         public void ApAmmoBox()
         {
-            var ammos = TurretStats.Where(t => t.turretPart == Enums.TurretPart.APAmmo);
+            var ammos = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.APAmmo);
 
             foreach (var ammo in ammos)
             {
-                var loaders = TurretStats.Where(t => t.turretPart == Enums.TurretPart.AutoLoader
+                var loaders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.AutoLoader
                                                      && (
                                                          (t.x == ammo.x - 1 && t.y == ammo.y)
                                                          || (t.x == ammo.x + 1 && t.y == ammo.y)
@@ -165,15 +165,15 @@ namespace LudumDare46.Shared.Helpers
 
         public void AutoLoader()
         {
-            var loaders = TurretStats.Where(t => t.turretPart == Enums.TurretPart.AutoLoader);
+            var loaders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.AutoLoader);
 
             foreach (var loader in loaders)
             {
                 if (!loader.hasAmmo) continue;
 
                 var turrets = TurretStats.Where(t =>
-                    (t.turretPart == Enums.TurretPart.Turret
-                     || t.turretPart == Enums.TurretPart.BarrelExtender)
+                    (t.turretPart == Shared.Enums.TurretPart.Turret
+                     || t.turretPart == Shared.Enums.TurretPart.BarrelExtender)
                     && (
                         (t.x == loader.x - 1 && t.y == loader.y)
                         || (t.x == loader.x && t.y == loader.y + 1)
@@ -181,7 +181,7 @@ namespace LudumDare46.Shared.Helpers
                     )).ToList();
 
                 var beltFeeds = TurretStats.Where(t =>
-                    (t.turretPart == Enums.TurretPart.BeltFeed)
+                    (t.turretPart == Shared.Enums.TurretPart.BeltFeed)
                     && (
                         (t.x == loader.x - 1 && t.y == loader.y)
                         || (t.x == loader.x + 1 && t.y == loader.y)
@@ -221,15 +221,15 @@ namespace LudumDare46.Shared.Helpers
 
         public void BeltFeeds()
         {
-            var beltFeeds = TurretStats.Where(t => t.turretPart == Enums.TurretPart.BeltFeed);
+            var beltFeeds = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.BeltFeed);
 
 
             foreach (var belt in beltFeeds)
             {
                 if (!belt.hasAmmo) continue;
                 var turrets = TurretStats.Where(t =>
-                    (t.turretPart == Enums.TurretPart.BarrelExtender
-                     || t.turretPart == Enums.TurretPart.Turret)
+                    (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
+                     || t.turretPart == Shared.Enums.TurretPart.Turret)
                     && (
                         (t.x == belt.x - 1 && t.y == belt.y)
                         || (t.x == belt.x + 1 && t.y == belt.y)
@@ -256,7 +256,7 @@ namespace LudumDare46.Shared.Helpers
 
         public void BarrelExtenders()
         {
-            var barrelExtenders = TurretStats.Where(t => t.turretPart == Enums.TurretPart.BarrelExtender).ToList();
+            var barrelExtenders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.BarrelExtender).ToList();
 
             barrelExtenders = barrelExtenders.OrderByDescending(b => b.x).ToList();
 
@@ -265,8 +265,8 @@ namespace LudumDare46.Shared.Helpers
                 if (!extender.hasAmmo) continue;
 
                 var turret = TurretStats.First(t =>
-                    (t.turretPart == Enums.TurretPart.BarrelExtender
-                     || t.turretPart == Enums.TurretPart.Turret)
+                    (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
+                     || t.turretPart == Shared.Enums.TurretPart.Turret)
                     && (
                         (t.x == extender.x - 1 && t.y == extender.y)
                     ));
@@ -288,7 +288,7 @@ namespace LudumDare46.Shared.Helpers
     {
         public int x;
         public int y;
-        public Enums.TurretPart turretPart;
+        public Shared.Enums.TurretPart turretPart;
         public bool hasAmmo;
         public float fireRate = 1;
         public float radius = 1;
