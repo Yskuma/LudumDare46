@@ -26,11 +26,6 @@
 /processorParam:TextureFormat=Color
 /build:bullet.png
 
-#begin Data/Enemies/Truck.json
-/importer:JsonContentImporter
-/processor:JsonContentProcessor
-/build:Data/Enemies/Truck.json
-
 #begin KennyBold.fnt
 /importer:BitmapFontImporter
 /processor:BitmapFontProcessor
