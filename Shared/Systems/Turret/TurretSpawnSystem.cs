@@ -26,7 +26,7 @@ namespace LudumDare46.Shared.Systems.Turret
         private Random _random;
 
         public TurretSpawnSystem(TextureManager textureManager, TurretHelper turretHelper) 
-            : base(Aspect.All(typeof(TurretComponent), typeof(Transform2)))
+            : base(Aspect.All(typeof(TurretComponent), typeof(Transform2), typeof(TurretPartComponent)))
         {
             _textureManager = textureManager;
             _turretHelper = turretHelper;
@@ -61,26 +61,32 @@ namespace LudumDare46.Shared.Systems.Turret
                     case TurretPart.BarrelExtender:
                         e.Attach(new Sprite(_textureManager.BarrelExtender));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.BeltFeed:
                         e.Attach(new Sprite(_textureManager.BeltFeed));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.AutoLoader:
                         e.Attach(new Sprite(_textureManager.Loader));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.APAmmo:
                         e.Attach(new Sprite(_textureManager.AmmoAP));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.FragAmmo:
                         e.Attach(new Sprite(_textureManager.AmmoFrag));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.ExplosiveAmmo:
                         e.Attach(new Sprite(_textureManager.AmmoExp));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.Empty:
                         foreach (var entity in ActiveEntities)
