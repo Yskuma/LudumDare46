@@ -70,7 +70,7 @@ namespace LudumDare46.Shared.Systems
                         {
                             CurrentRadius = 0.0f,
                             ExplosionSpeed = 500.0f,
-                            MaxRadius = 200.0f
+                            MaxRadius = 100.0f * enemy.Damage
                         });
 
                         _soundManager.Explosion2.Play(0.5f, 0,0);
