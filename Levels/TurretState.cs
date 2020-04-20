@@ -77,13 +77,37 @@ namespace LudumDare46.Levels
 
         public void CalculateDamage()
         {
-            List<TurretStat> explosiveAmmoBoxes;
+            UnloadTurrets();
             ExplosiveAmmoBox();
             FragAmmoBox();
             ApAmmoBox();
             AutoLoader();
             BeltFeeds();
             BarrelExtenders();
+            TurretsStatScaling();
+        }
+
+        public void TurretsStatScaling()
+        {
+            var turrets = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.Turret);
+
+            foreach (var turret in turrets)
+            {
+                turret.physicalDamage = turret.physicalDamage * 1;
+                turret.radius = turret.radius > 1 ? turret.radius * 30 : 0;
+                turret.fireRate = turret.fireRate * 0.2f;
+                turret.range = turret.range * 20;
+            }
+        }
+
+        public void UnloadTurrets()
+        {
+            var turrets = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.Turret);
+
+            foreach (var turret in turrets)
+            {
+                turret.hasAmmo = false;
+            }
         }
 
         public void ExplosiveAmmoBox()
@@ -103,11 +127,11 @@ namespace LudumDare46.Levels
                 foreach (var loader in loaders)
                 {
                     loader.radius =
-                        loader.radius * 1.1f;
+                        loader.radius * 1.5f;
                     loader.armourPierce =
-                        loader.armourPierce * 0.9f;
+                        loader.armourPierce * 0.75f;
                     loader.physicalDamage =
-                        loader.physicalDamage * 1.02f;
+                        loader.physicalDamage * 1.1f;
                     loader.hasAmmo = true;
                 }
             }
@@ -130,9 +154,9 @@ namespace LudumDare46.Levels
                 foreach (var loader in loaders)
                 {
                     loader.radius =
-                        loader.radius * 1.1f;
+                        loader.radius * 1.3f;
                     loader.physicalDamage =
-                        loader.physicalDamage * 0.95f;
+                        loader.physicalDamage * 0.90f;
                     loader.hasAmmo = true;
                 }
             }
@@ -155,9 +179,9 @@ namespace LudumDare46.Levels
                 foreach (var loader in loaders)
                 {
                     loader.physicalDamage =
-                        loader.physicalDamage * 1.1f;
+                        loader.physicalDamage * 1.2f;
                     loader.armourPierce =
-                        loader.armourPierce * 1.1f;
+                        loader.armourPierce * 1.5f;
                     loader.hasAmmo = true;
                 }
             }
@@ -198,7 +222,7 @@ namespace LudumDare46.Levels
                     turret.armourPierce =
                         turret.armourPierce * ((loader.armourPierce - 1) / targetCount + 1);
                     turret.fireRate =
-                        turret.fireRate * ((loader.fireRate * 1.1f - 1) / targetCount + 1);
+                        turret.fireRate * ((loader.fireRate * 1.5f - 1) / targetCount + 1);
                     turret.radius = turret.radius * ((loader.radius - 1) / targetCount + 1);
                     turret.range = turret.range * ((loader.range - 1) / targetCount + 1);
                     turret.hasAmmo = loader.hasAmmo;
@@ -211,7 +235,7 @@ namespace LudumDare46.Levels
                     belt.armourPierce =
                         belt.armourPierce * ((loader.armourPierce - 1) / targetCount + 1);
                     belt.fireRate =
-                        belt.fireRate * ((loader.fireRate * 1.1f - 1) / targetCount + 1);
+                        belt.fireRate * ((loader.fireRate * 1.5f - 1) / targetCount + 1);
                     belt.radius = belt.radius * ((loader.radius - 1) / targetCount + 1);
                     belt.range = belt.range * ((loader.range - 1) / targetCount + 1);
                     belt.hasAmmo = loader.hasAmmo;
@@ -272,11 +296,11 @@ namespace LudumDare46.Levels
                     ));
 
                 turret.physicalDamage =
-                    turret.physicalDamage * extender.physicalDamage * 1.1f;
+                    turret.physicalDamage * extender.physicalDamage * 1.5f;
                 turret.armourPierce =
                     turret.armourPierce * extender.armourPierce;
                 turret.fireRate =
-                    turret.fireRate * extender.fireRate * 0.9f;
+                    turret.fireRate * extender.fireRate * 0.8f;
                 turret.radius = turret.radius * extender.radius;
                 turret.range = turret.range * extender.range;
                 turret.hasAmmo = extender.hasAmmo;
@@ -292,8 +316,8 @@ namespace LudumDare46.Levels
         public bool hasAmmo;
         public float fireRate = 1;
         public float radius = 1;
-        public float physicalDamage = 5;
-        public float range = 10;
+        public float physicalDamage = 1;
+        public float range = 1;
         public float armourPierce = 1;
         public bool newPart = false;
 

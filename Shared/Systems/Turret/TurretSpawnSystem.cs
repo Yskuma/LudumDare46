@@ -56,9 +56,12 @@ namespace LudumDare46.Shared.Systems.Turret
                         e.Attach(new Sprite(_textureManager.Turret));
                         e.Attach(new Transform2(tempx, tempy, 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
-                        e.Attach(new TurretComponent(400, 1.0f / 2)
+                        e.Attach(new TurretComponent(turret.range, 0)
                         {
-                            PhysicalDamage = 5
+                            FireRate = turret.fireRate,
+                            PhysicalDamage = turret.physicalDamage,
+                            Radius = turret.radius,
+                            HasAmmo = turret.hasAmmo
                         });
                         break;
                     case TurretPart.BarrelExtender:
