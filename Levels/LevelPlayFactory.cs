@@ -31,6 +31,7 @@ namespace LudumDare46.Levels
             var map = contentManager.Load<TiledMap>(levelDefinition.Map);
 
             var areaLayer = map.ObjectLayers.FirstOrDefault(r => r.Name == "Areas");
+            turretState.CalculateDamage();
             turretState.TurretStats = turretState.TurretStats.Where(r => r.turretPart != TurretPart.Empty).ToList();
             turretState.TurretStats.ForEach(r => r.newPart = true);
 

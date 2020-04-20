@@ -10,6 +10,8 @@ namespace LudumDare46.Shared.Components.TurretComponents
         public float Radius { get; set; }
         public float PhysicalDamage { get; set; }
         public float Range { get; set; }
+
+        public bool HasAmmo { get; set; }
         public float ArmourPierce { get; set; }
         public float TargetRotation { get; set; }
 

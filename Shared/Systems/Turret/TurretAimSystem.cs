@@ -78,7 +78,7 @@ namespace LudumDare46.Shared.Systems
                     turretTransform.Rotation = MathF.Atan2(turretTransform.Position.Y - enemyTransform.Position.Y,
                         turretTransform.Position.X - enemyTransform.Position.X);
 
-                    if (turret.ReloadTimeRemaining < 0)
+                    if (turret.ReloadTimeRemaining < 0 && turret.HasAmmo)
                     {
                         var bulletSpeed = 400f;
                         var targetPosition = new Vector2(enemyTransform.Position.X, enemyTransform.Position.Y);
