@@ -1,4 +1,4 @@
-﻿using LudumDare46.Levels.Level01;
+﻿using LudumDare46.Levels;
 using LudumDare46.Shared;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +15,7 @@ namespace LudumDare46
 
         private ViewportAdapter _boxingViewportAdapter;
 
-        private World _currentLevel;
+        private Level _currentLevel;
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private TextureManager _textureManager;
@@ -40,7 +40,7 @@ namespace LudumDare46
                 SpriteEffects.None, 0.0f);
             _spriteBatch.End();
 
-            _currentLevel.Draw(gameTime);
+            _currentLevel.World.Draw(gameTime);
 
             //_guiMain.Draw(gameTime);
 
@@ -65,8 +65,7 @@ namespace LudumDare46
 
             base.Initialize();
 
-            _currentLevel = new Level01Factory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);
-            
+            _currentLevel = new LevelBuildFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);
         }
 
         protected override void LoadContent()
@@ -91,8 +90,14 @@ namespace LudumDare46
                 Exit();
             }
 
+            if (_currentLevel.State.BuildDone)
+            {
+                _currentLevel.World.Dispose();
+                _currentLevel = new LevelPlayFactory().Build(_graphics, _textureManager, _boxingViewportAdapter, Content);;
+            }
+
             // TODO: Add your update logic here
-            _currentLevel.Update(gameTime);
+            _currentLevel.World.Update(gameTime);
 
             //_guiMain.Update(gameTime);
             

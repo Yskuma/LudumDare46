@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using LudumDare46.Shared.Components;
 using LudumDare46.Shared.Enums;
 using LudumDare46.Shared.Helpers;
 using Microsoft.Xna.Framework;
@@ -27,6 +28,7 @@ namespace LudumDare46.Shared.Systems.Gui
         private readonly ContentManager _contentManager;
         private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
+        private LevelState _levelState;
 
         private List<ButtonModel> buttonModels;
 
@@ -36,7 +38,7 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
             GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper)
+            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper, LevelState levelState)
         {
             _graphicsDeviceManager = graphics;
             _defaultViewportAdapter = viewport;
@@ -44,6 +46,7 @@ namespace LudumDare46.Shared.Systems.Gui
             _contentManager = contentManager;
             _textureManager = textureManager;
             _turretHelper = turretHelper;
+            _levelState = levelState;
         }
 
         public void Initialize(World world)
@@ -258,6 +261,12 @@ namespace LudumDare46.Shared.Systems.Gui
                     description.Text = buttonModel.Description;
                     SelectedPart = buttonModel.Part;
                 }
+            }
+
+            var endButton = _guiSystem.ActiveScreen.FindControl<Button>("EndBuild");
+            if (endButton != null && endButton.IsPressed)
+            {
+                _levelState.BuildDone = true;
             }
 
             if (mouseState.WasButtonJustDown(MouseButton.Right))
