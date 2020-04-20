@@ -8,7 +8,7 @@ namespace LudumDare46.Levels.LevelDefinitions
     {
         public LevelDefinition08()
         {
-            Name = "Level 05";
+            Name = "Level 08";
             Map = "Level08";
             Resources = 100;
             Enemies = GenerateEnemies();
@@ -23,7 +23,7 @@ namespace LudumDare46.Levels.LevelDefinitions
             list.AddRange(Enumerable.Range(0, 150)
                 .Select(r => new EnemySpawnItem()
                 {
-                    SpawnTime = r * 0.15f,
+                    SpawnTime = r * 0.2f,
                     Enemy = helper.Man()
                 }));
 
