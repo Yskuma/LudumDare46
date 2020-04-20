@@ -83,6 +83,7 @@ namespace LudumDare46.Levels
             ApAmmoBox();
             AutoLoader();
             BeltFeeds();
+            TargetingComputer();
             BarrelExtenders();
             TurretsStatScaling();
         }
@@ -96,7 +97,7 @@ namespace LudumDare46.Levels
                 turret.physicalDamage = turret.physicalDamage * 15;
                 turret.radius = turret.radius > 1 ? turret.radius * 25 : 10;
                 turret.fireRate = turret.fireRate * 0.6f;
-                turret.range = (turret.range * 100) + 300;
+                turret.range = ((turret.range - 1) * 200) + 300;
                 turret.armourPierce = turret.armourPierce;
             }
         }
@@ -277,6 +278,33 @@ namespace LudumDare46.Levels
             }
         }
 
+        public void TargetingComputer()
+        {
+            var targetingComputers = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.TargetingComputer).ToList();
+
+            targetingComputers = targetingComputers.OrderByDescending(b => b.x).ToList();
+
+            foreach (var computer in targetingComputers)
+            {
+                
+                var turret = TurretStats.First(t =>
+                    (t.turretPart == Shared.Enums.TurretPart.BarrelExtender
+                     || t.turretPart == Shared.Enums.TurretPart.Turret)
+                    && (
+                        (t.x == computer.x - 1 && t.y == computer.y)
+                    ));
+
+                turret.physicalDamage =
+                    turret.physicalDamage * computer.physicalDamage;
+                turret.armourPierce =
+                    turret.armourPierce * computer.armourPierce;
+                turret.fireRate =
+                    turret.fireRate * computer.fireRate ;
+                turret.radius = turret.radius * computer.radius;
+                turret.range = turret.range * computer.range * 1.5f;
+            }
+        }
+
         public void BarrelExtenders()
         {
             var barrelExtenders = TurretStats.Where(t => t.turretPart == Shared.Enums.TurretPart.BarrelExtender).ToList();
@@ -285,7 +313,6 @@ namespace LudumDare46.Levels
 
             foreach (var extender in barrelExtenders)
             {
-                if (!extender.hasAmmo) continue;
 
                 var turret = TurretStats.First(t =>
                     (t.turretPart == Shared.Enums.TurretPart.BarrelExtender

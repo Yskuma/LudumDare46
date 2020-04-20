@@ -95,6 +95,11 @@ namespace LudumDare46.Shared.Systems.Turret
                         e.Attach(new Transform2(tempx, tempy, 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
+                    case TurretPart.TargetingComputer:
+                        e.Attach(new Sprite(_textureManager.TargetingComputer));
+                        e.Attach(new Transform2(tempx, tempy, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
+                        break;
                     case TurretPart.Empty:
                         foreach (var entity in ActiveEntities)
                         {
