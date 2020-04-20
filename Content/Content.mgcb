@@ -84,41 +84,6 @@
 /processor:TiledMapProcessor
 /build:Level02.tmx
 
-#begin Level03.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level03.tmx
-
-#begin Level04.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level04.tmx
-
-#begin Level05.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level05.tmx
-
-#begin Level06.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level06.tmx
-
-#begin Level07.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level07.tmx
-
-#begin Level08.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level08.tmx
-
-#begin Level09.tmx
-/importer:TiledMapImporter
-/processor:TiledMapProcessor
-/build:Level09.tmx
-
 #begin loader.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -166,6 +131,18 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:Music/Time Driving.ogg
+
+#begin pig.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pig.png
 
 #begin roguelikeCity_tiles.tsx
 /importer:TiledMapTilesetImporter
