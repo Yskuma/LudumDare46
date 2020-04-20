@@ -321,7 +321,7 @@ namespace LudumDare46.Levels
                     turret.fireRate * extender.fireRate * 0.8f;
                 turret.radius = turret.radius * extender.radius;
                 turret.range = turret.range * extender.range;
-                turret.hasAmmo = extender.hasAmmo;
+                turret.hasAmmo = extender.hasAmmo || turret.hasAmmo;
             }
         }
     }
