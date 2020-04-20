@@ -93,10 +93,11 @@ namespace LudumDare46.Levels
 
             foreach (var turret in turrets)
             {
-                turret.physicalDamage = turret.physicalDamage * 1;
-                turret.radius = turret.radius > 1 ? turret.radius * 30 : 0;
-                turret.fireRate = turret.fireRate * 0.2f;
-                turret.range = turret.range * 100;
+                turret.physicalDamage = turret.physicalDamage * 15;
+                turret.radius = turret.radius > 2 ? turret.radius * 30 : 2;
+                turret.fireRate = turret.fireRate * 0.3f;
+                turret.range = (turret.range * 100) + 300;
+                turret.armourPierce = turret.armourPierce > 1 ? turret.armourPierce : 1;
             }
         }
 

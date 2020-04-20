@@ -61,7 +61,8 @@ namespace LudumDare46.Shared.Systems.Turret
                             FireRate = turret.fireRate,
                             PhysicalDamage = turret.physicalDamage,
                             Radius = turret.radius,
-                            HasAmmo = turret.hasAmmo
+                            HasAmmo = turret.hasAmmo,
+                            ArmourPierce = turret.armourPierce
                         });
                         break;
                     case TurretPart.BarrelExtender:
