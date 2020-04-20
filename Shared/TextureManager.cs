@@ -71,13 +71,14 @@ namespace LudumDare46.Shared
             SciFiUnit09 = _contentManager.Load<Texture2D>("Units/scifiUnit_09");
             SciFiUnit10 = _contentManager.Load<Texture2D>("Units/scifiUnit_10");
 
-            Turret = _contentManager.Load<Texture2D>("turret");
+            Turret = _contentManager.Load<Texture2D>("turret2");
             Bullet = _contentManager.Load<Texture2D>("bullet");
 
             BulletExplosion = _contentManager.Load<Texture2D>("bulletExplosion");
             EnemyExplosion = _contentManager.Load<Texture2D>("enemyExplosion");
 
-            BarrelEnd = new TextureRegion2D(RoguelikeCity, 13 * 17, 16 * 17, 16, 16);
+            //BarrelEnd = new TextureRegion2D(RoguelikeCity, 13 * 17, 16 * 17, 16, 16);
+            BarrelEnd = new TextureRegion2D(Turret, 0, -8, 24, 32);
             BeltFeed = new TextureRegion2D(RoguelikeCity, 22 * 17, 9 * 17, 16, 16);
             BarrelExtender = new TextureRegion2D(RoguelikeCity, 10 * 17, 2 * 17, 16, 16);
             Loader = new TextureRegion2D(RoguelikeCity, 2 * 17, 16 * 17, 16, 16);
