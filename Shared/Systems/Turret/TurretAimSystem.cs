@@ -70,7 +70,7 @@ namespace LudumDare46.Shared.Systems
                 }
 
                 // Point at nearest
-                if (nearestEnemy.HasValue)
+                if (nearestEnemy.HasValue && distance < MathF.Pow(turret.Range,2) )
                 {
                     var enemyTransform = _transformMapper.Get(nearestEnemy.Value);
                     var enemyMovement = _movementMapper.Get(nearestEnemy.Value);
