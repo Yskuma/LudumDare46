@@ -209,6 +209,7 @@ namespace LudumDare46.Shared.Systems.Gui
                             },
                             new Button()
                             {
+                                Name = "Continue",
                                 Content = "Continue",
                                 Size = new Size(200, 50),
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100,
@@ -263,7 +264,7 @@ namespace LudumDare46.Shared.Systems.Gui
                 }
             }
 
-            var endButton = _guiSystem.ActiveScreen.FindControl<Button>("EndBuild");
+            var endButton = _guiSystem.ActiveScreen.FindControl<Button>("Continue");
             if (endButton != null && endButton.IsPressed)
             {
                 _levelState.BuildDone = true;
