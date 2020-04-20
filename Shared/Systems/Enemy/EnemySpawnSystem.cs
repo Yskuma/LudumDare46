@@ -13,12 +13,12 @@ namespace LudumDare46.Shared.Systems
 {
     class EnemySpawnSystem : EntityUpdateSystem
     {
-
         private readonly TextureManager _textureManager;
-        
 
-        private double TimeUntilNextSpawn = 0;
+        private double _timeUntilNextSpawn = 0;
+
         private List<Rectangle> _spawnAreas;
+
         //private EnemyFactory _enemyFactory;
         private Random _random;
 
@@ -29,29 +29,29 @@ namespace LudumDare46.Shared.Systems
             //_enemyFactory = new EnemyFactory();
             _random = new Random(1983);
         }
+
         public override void Update(GameTime gameTime)
         {
-            if(gameTime.TotalGameTime.TotalSeconds > TimeUntilNextSpawn)
+            _timeUntilNextSpawn -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (_timeUntilNextSpawn < 0)
             {
                 var spawnIndex = _random.Next(_spawnAreas.Count);
-                var spawnX = (float)(_random.NextDouble() * _spawnAreas[spawnIndex].Width) + _spawnAreas[spawnIndex].X;
-                var spawnY = (float)(_random.NextDouble() * _spawnAreas[spawnIndex].Height) + _spawnAreas[spawnIndex].Y;
+                var spawnX = (float) (_random.NextDouble() * _spawnAreas[spawnIndex].Width) + _spawnAreas[spawnIndex].X;
+                var spawnY = (float) (_random.NextDouble() * _spawnAreas[spawnIndex].Height) +
+                             _spawnAreas[spawnIndex].Y;
 
                 var e = CreateEntity();
                 e.Attach(new Sprite(_textureManager.SciFiUnit06));
-                e.Attach(new Transform2(spawnX, spawnY,0.0F, 1.0F, 1.0F));
+                e.Attach(new Transform2(spawnX, spawnY, 0.0F, 1.0F, 1.0F));
                 e.Attach(new MovementComponent(Vector2.UnitX * 80));
                 e.Attach(new EnemyComponent());
 
-                TimeUntilNextSpawn = TimeUntilNextSpawn + 1;
+                _timeUntilNextSpawn = 1;
             }
-
-
         }
 
         public override void Initialize(IComponentMapperService mapperService)
         {
-            
         }
     }
 }
