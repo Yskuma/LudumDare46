@@ -20,7 +20,7 @@ using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.Systems.Gui
 {
-    class GuiHandlerSystem : IUpdateSystem, IDrawSystem
+    class BuildGuiHandlerSystem : IUpdateSystem, IDrawSystem
     {
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
         private readonly ViewportAdapter _defaultViewportAdapter;
@@ -37,9 +37,10 @@ namespace LudumDare46.Shared.Systems.Gui
 
         private TurretHelper _turretHelper;
 
-        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
+        public BuildGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
             GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper, LevelState levelState, List<Rectangle> buildAreas)
+            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper,
+            LevelState levelState, List<Rectangle> buildAreas)
         {
             _graphicsDeviceManager = graphics;
             _defaultViewportAdapter = viewport;
@@ -166,7 +167,7 @@ namespace LudumDare46.Shared.Systems.Gui
                 });
             }
 
-            var Screen =
+            var screen =
                 new Screen
                 {
                     Content = new Canvas()
@@ -223,7 +224,7 @@ namespace LudumDare46.Shared.Systems.Gui
 
             _guiSystem = new GuiSystem(_defaultViewportAdapter, _guiSpriteBatchRenderer)
             {
-                ActiveScreen = Screen
+                ActiveScreen = screen
             };
         }
 

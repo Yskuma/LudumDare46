@@ -34,7 +34,8 @@ namespace LudumDare46.Levels
             {
                 IsPlayStage = true,
                 IsBuildStage = false,
-                LevelNum = 1
+                LevelNum = 1, 
+                BuildingHealth = 50f
             };
 
             var spawnAreas = areaLayer.Objects
@@ -58,8 +59,8 @@ namespace LudumDare46.Levels
                 .AddSystem(new RenderMapSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter, textureManager,
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
-                .AddSystem(new TurretSpawnSystem(textureManager, turretHelper));
-            //.AddSystem(new GuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper, state));
+                .AddSystem(new TurretSpawnSystem(textureManager, turretHelper))
+             .AddSystem(new PlayGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper, state));
 
 
             var world = worldBuilder.Build();

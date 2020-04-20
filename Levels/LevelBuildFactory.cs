@@ -56,7 +56,7 @@ namespace LudumDare46.Levels
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
                 .AddSystem(new TurretSpawnSystem(textureManager, turretHelper))
-                .AddSystem(new GuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper,state, buildAreas));
+                .AddSystem(new BuildGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper,state, buildAreas));
 
             var world = worldBuilder.Build();
 
