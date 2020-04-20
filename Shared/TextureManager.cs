@@ -50,6 +50,8 @@ namespace LudumDare46.Shared
 
             Turret = _contentManager.Load<Texture2D>("turret");
             Bullet = _contentManager.Load<Texture2D>("bullet");
+
+            
         }
 
         
