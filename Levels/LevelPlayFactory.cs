@@ -87,7 +87,7 @@ namespace LudumDare46.Levels
             };
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(soundManager.MissionPlausible);
+            MediaPlayer.Play(soundManager.DirtyElectroHouse1);
         
             return level;
         }

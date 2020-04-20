@@ -11,7 +11,7 @@ namespace LudumDare46.Enemy
             return new EnemyDefinition()
                 {
                     Appearance = EnemyAppearance.Man,
-                    Speed = 20,
+                    Speed = 30,
                     Armour = 0,
                     HP = 5
                 };
@@ -22,7 +22,7 @@ namespace LudumDare46.Enemy
             return new EnemyDefinition()
             {
                 Appearance = EnemyAppearance.Car,
-                Speed = 60,
+                Speed = 70,
                 Armour = 2,
                 HP = 20
             };
@@ -33,7 +33,7 @@ namespace LudumDare46.Enemy
             return new EnemyDefinition()
             {
                 Appearance = EnemyAppearance.APC,
-                Speed = 50,
+                Speed = 60,
                 Armour = 5,
                 HP = 25
             };
@@ -55,7 +55,7 @@ namespace LudumDare46.Enemy
             return new EnemyDefinition()
             {
                 Appearance = EnemyAppearance.Truck,
-                Speed = 50,
+                Speed = 60,
                 Armour = 2,
                 HP = 25
             };

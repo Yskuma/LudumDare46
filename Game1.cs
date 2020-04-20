@@ -78,7 +78,7 @@ namespace LudumDare46
 
             base.Initialize();
 
-            MediaPlayer.Volume = 0.3f;
+            MediaPlayer.Volume = 0.1f;
 
             _currentLevel = new LevelMainMenuFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
         }

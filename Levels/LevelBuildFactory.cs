@@ -79,7 +79,7 @@ namespace LudumDare46.Levels
             };
 
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(soundManager.TimeDriving);
+            MediaPlayer.Play(soundManager.ChillStep2);
         
             return level;
         }

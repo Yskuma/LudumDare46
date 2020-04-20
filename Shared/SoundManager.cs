@@ -33,7 +33,19 @@ namespace LudumDare46.Shared
             FlowingRocks = _contentManager.Load<Song>("Music/Flowing Rocks");
             MissionPlausible = _contentManager.Load<Song>("Music/Mission Plausible");
             TimeDriving = _contentManager.Load<Song>("Music/Time Driving");
+
+            ChillStep1 = _contentManager.Load<Song>("Music/Chillstep_1");
+            ChillStep2 = _contentManager.Load<Song>("Music/Chillstep_2");
+
+            DirtyElectroHouse1 = _contentManager.Load<Song>("Music/DirtyElectroHouse_1");
+
         }
+
+        public Song DirtyElectroHouse1 { get; set; }
+
+        public Song ChillStep2 { get; set; }
+
+        public Song ChillStep1 { get; set; }
 
         public Song TimeDriving { get; set; }
 
