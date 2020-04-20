@@ -28,7 +28,11 @@ namespace LudumDare46
             new LevelDefinition02(),
             new LevelDefinition03(),
             new LevelDefinition04(),
-            new LevelDefinition05()
+            new LevelDefinition05(),
+            new LevelDefinition06(),
+            new LevelDefinition07(),
+            new LevelDefinition08(),
+            new LevelDefinition09()
         };
 
         private int _currentLevelNum = -1;

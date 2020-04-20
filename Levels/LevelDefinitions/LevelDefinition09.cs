@@ -4,12 +4,12 @@ using LudumDare46.Enemy;
 
 namespace LudumDare46.Levels.LevelDefinitions
 {
-    public class LevelDefinition03 : LevelDefinition
+    public class LevelDefinition09 : LevelDefinition
     {
-        public LevelDefinition03()
+        public LevelDefinition09()
         {
-            Name = "Level 03";
-            Map = "Level03";
+            Name = "Level 05";
+            Map = "Level09";
             Resources = 100;
             Enemies = GenerateEnemies();
         }
@@ -20,18 +20,18 @@ namespace LudumDare46.Levels.LevelDefinitions
 
             var list = new List<EnemySpawnItem>();
 
-            list.AddRange(Enumerable.Range(0, 20)
+            list.AddRange(new []{0,2,4,6,8,10,12,14,16,18}
                 .Select(r => new EnemySpawnItem()
                 {
-                    SpawnTime = r * 0.5f,
-                    Enemy = helper.Car()
+                    SpawnTime = r,
+                    Enemy = helper.Man()
                 }));
 
             list.AddRange(new []{20,22,24,26,28}
                 .Select(r => new EnemySpawnItem()
                 {
                     SpawnTime = r,
-                    Enemy = helper.Truck()
+                    Enemy = helper.Car()
                 }));
 
             list.Add(new EnemySpawnItem()
