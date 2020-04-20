@@ -28,23 +28,51 @@ namespace LudumDare46.Shared.Helpers
                 return false;
             }
 
-            TurretStats.Remove(grid.First());
+            var currentPart = grid.First().turretPart;
 
-            TurretStats.Add(new TurretStat
+            if (currentPart == TurretPart.Empty)
             {
-                x = location.X,
-                y = location.Y,
-                turretPart = part,
-                hasAmmo = false,
-                fireRate = 1,
-                radius = 1,
-                physicalDamage = 1,
-                range = 400,
-                armourPierce = 1,
-                newPart = true
-            });
+                TurretStats.Remove(grid.First());
 
-            return true;
+                TurretStats.Add(new TurretStat
+                {
+                    x = location.X,
+                    y = location.Y,
+                    turretPart = part,
+                    hasAmmo = false,
+                    fireRate = 1,
+                    radius = 1,
+                    physicalDamage = 1,
+                    range = 400,
+                    armourPierce = 1,
+                    newPart = true
+                });
+
+                return true;
+            }
+
+            if (currentPart != TurretPart.Empty && part == TurretPart.Empty)
+            {
+                TurretStats.Remove(grid.First());
+
+                TurretStats.Add(new TurretStat
+                {
+                    x = location.X,
+                    y = location.Y,
+                    turretPart = part,
+                    hasAmmo = false,
+                    fireRate = 1,
+                    radius = 1,
+                    physicalDamage = 1,
+                    range = 400,
+                    armourPierce = 1,
+                    newPart = true
+                });
+
+                return true;
+            }
+
+            return false;
         }
 
         public void CalculateDamage()
@@ -271,7 +299,6 @@ namespace LudumDare46.Shared.Helpers
 
         public TurretStat()
         {
-
         }
 
         public TurretStat(int x, int y, TurretPart turretPart)

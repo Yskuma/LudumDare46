@@ -132,6 +132,11 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nDecreases"+
                     "\r\ndamage.",
                     Enums.TurretPart.FragAmmo),
+                new ButtonModel("Remove", _textureManager.Remove,
+                    "Remove" +
+                    "\r\nTurret" +
+                    "\r\nComponent",
+                    Enums.TurretPart.Empty)
             };
 
             var buttons = new UniformGrid()
@@ -163,7 +168,7 @@ namespace LudumDare46.Shared.Systems.Gui
                         Name = "DemoList",
                         AttachedProperties = {{DockPanel.DockProperty, Dock.Right}},
                         VerticalAlignment = VerticalAlignment.Top,
-                        HorizontalAlignment = HorizontalAlignment.Right,
+                        HorizontalAlignment = HorizontalAlignment.Left,
                         BackgroundColor = new Color(30, 30, 30),
                         LastChildFill = true,
                         Size = new Size(300, _defaultViewportAdapter.ViewportHeight),
@@ -250,10 +255,9 @@ namespace LudumDare46.Shared.Systems.Gui
 
             if (mouseState.WasButtonJustDown(MouseButton.Left))
             {
-                if (SelectedPart != TurretPart.Empty)
-                {
+
                     PlacePartAtMouse(SelectedPart);
-                }
+
             }
         }
 
