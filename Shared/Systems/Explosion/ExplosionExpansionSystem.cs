@@ -38,8 +38,8 @@ namespace LudumDare46.Shared.Systems.Explosion
                 explosion.CurrentRadius = explosion.CurrentRadius +
                                           ((float)gameTime.ElapsedGameTime.TotalSeconds * explosion.ExplosionSpeed);
 
-                transform.Scale = new Vector2((float)sprite.TextureRegion.Width / explosion.CurrentRadius, 
-                    (float)sprite.TextureRegion.Height / explosion.CurrentRadius);
+                transform.Scale = new Vector2(explosion.CurrentRadius / (float)sprite.TextureRegion.Width, 
+                    explosion.CurrentRadius / (float)sprite.TextureRegion.Height);
             }
         }
     }

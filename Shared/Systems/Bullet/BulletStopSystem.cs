@@ -60,7 +60,7 @@ namespace LudumDare46.Shared.Systems.Bullet
                     explosion.Attach(new ExplosionComponent()
                     {
                         CurrentRadius = 0.0f,
-                        ExplosionSpeed = 100.0f,
+                        ExplosionSpeed = 500.0f,
                         MaxRadius = bullet.Radius
                     });
                 }
