@@ -95,7 +95,7 @@ namespace LudumDare46.Levels
             {
                 turret.physicalDamage = turret.physicalDamage * 15;
                 turret.radius = turret.radius > 1 ? turret.radius * 25 : 10;
-                turret.fireRate = turret.fireRate * 0.5f;
+                turret.fireRate = turret.fireRate * 0.6f;
                 turret.range = (turret.range * 100) + 300;
                 turret.armourPierce = turret.armourPierce;
             }
