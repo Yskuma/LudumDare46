@@ -26,7 +26,7 @@ namespace LudumDare46.Shared.Systems.Turret
         private Random _random;
 
         public TurretSpawnSystem(TextureManager textureManager, TurretHelper turretHelper) 
-            : base(Aspect.All(typeof(TurretComponent), typeof(Transform2), typeof(TurretPartComponent)))
+            : base(Aspect.All( typeof(Transform2), typeof(TurretPartComponent)))
         {
             _textureManager = textureManager;
             _turretHelper = turretHelper;
@@ -53,6 +53,7 @@ namespace LudumDare46.Shared.Systems.Turret
                     case TurretPart.Turret:
                         e.Attach(new Sprite(_textureManager.Turret));
                         e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         e.Attach(new TurretComponent(400, 1.0f / 2)
                         {
                             PhysicalDamage = 5
