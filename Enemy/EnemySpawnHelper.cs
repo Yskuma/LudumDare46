@@ -13,7 +13,8 @@ namespace LudumDare46.Enemy
                     Appearance = EnemyAppearance.Man,
                     Speed = 30,
                     Armour = 0,
-                    HP = 5
+                    HP = 5,
+                    Damage = 1
                 };
         }
 
@@ -24,7 +25,8 @@ namespace LudumDare46.Enemy
                 Appearance = EnemyAppearance.Car,
                 Speed = 70,
                 Armour = 2,
-                HP = 20
+                HP = 20,
+                Damage = 2
             };
         }
 
@@ -35,7 +37,8 @@ namespace LudumDare46.Enemy
                 Appearance = EnemyAppearance.APC,
                 Speed = 60,
                 Armour = 5,
-                HP = 25
+                HP = 25,
+                Damage = 2
             };
         }
 
@@ -46,7 +49,8 @@ namespace LudumDare46.Enemy
                 Appearance = EnemyAppearance.Tank,
                 Speed = 40,
                 Armour = 10,
-                HP = 30
+                HP = 30,
+                Damage = 3
             };
         }
 
@@ -57,7 +61,8 @@ namespace LudumDare46.Enemy
                 Appearance = EnemyAppearance.Truck,
                 Speed = 60,
                 Armour = 2,
-                HP = 25
+                HP = 25,
+                Damage = 2
             };
         }
     }

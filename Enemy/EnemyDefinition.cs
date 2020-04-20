@@ -9,6 +9,7 @@ namespace LudumDare46.Enemy
         public float HP { get; set; }
         public float Armour { get; set; }
         public float Speed { get; set; }
+        public float Damage { get; set; }
         public EnemyAppearance Appearance { get; set; }
     }
 }

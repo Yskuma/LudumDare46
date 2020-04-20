@@ -55,8 +55,9 @@ namespace LudumDare46.Shared.Systems
                         transform.Position.Y > stopArea.Y &&
                         transform.Position.Y < stopArea.Y + stopArea.Height)
                     {
-                        //movement.Speed = Vector2.Zero;
-                        _levelState.BuildingHealth = _levelState.BuildingHealth - 1;
+                        var enemy = _enemyMapper.Get(entity);
+
+                        _levelState.BuildingHealth = _levelState.BuildingHealth - enemy.Damage;
 
                         var explosion = CreateEntity();
                         explosion.Attach(new Transform2(

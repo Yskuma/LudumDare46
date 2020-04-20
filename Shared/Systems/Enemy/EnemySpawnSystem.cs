@@ -65,7 +65,8 @@ namespace LudumDare46.Shared.Systems
                 {
                     HP = spawnEnemy.HP,
                     Armour = spawnEnemy.Armour,
-                    Speed = spawnEnemy.Speed
+                    Speed = spawnEnemy.Speed,
+                    Damage = spawnEnemy.Damage
                 });
                 e.Attach(new Sprite(_enemyTexDict[spawnEnemy.Appearance]));
 
