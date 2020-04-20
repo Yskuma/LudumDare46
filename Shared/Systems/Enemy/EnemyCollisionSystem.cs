@@ -52,6 +52,11 @@ namespace LudumDare46.Shared.Systems
                     {
                         //movement.Speed = Vector2.Zero;
                         _levelState.BuildingHealth = _levelState.BuildingHealth - 1;
+                        if (_levelState.BuildingHealth <= 0)
+                        {
+                            _levelState.GameOver = true;
+                            _levelState.BuildingHealth = 0;
+                        }
                         DestroyEntity(entity);
                     }
                 }
