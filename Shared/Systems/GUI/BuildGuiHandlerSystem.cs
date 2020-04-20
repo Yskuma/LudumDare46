@@ -139,6 +139,18 @@ namespace LudumDare46.Shared.Systems.Gui
                     "\r\nDecreases" +
                     "\r\ndamage.",
                     Enums.TurretPart.FragAmmo),
+                new ButtonModel("Computer", _textureManager.TargetingComputer,
+                    "Targeting" +
+                    "\r\nComputer" +
+                    "\r\n\r\nIncreases" +
+                    "\r\nRange." +
+                    "\r\nPlace to " +
+                    "\r\nright of " +
+                    "\r\nturrets," +
+                    "\r\nextenders," +
+                    "\r\nor other" +
+                    "\r\ncomputers.",
+                    Enums.TurretPart.TargetingComputer),
                 new ButtonModel("Remove", _textureManager.Remove,
                     "Remove" +
                     "\r\nTurret" +
@@ -303,9 +315,9 @@ namespace LudumDare46.Shared.Systems.Gui
 
             foreach (var buildArea in _buildAreas)
             {
-                if (mouseState.X >= buildArea.Left
+                if (mouseState.X > buildArea.Left
                     && mouseState.X < buildArea.Right
-                    && mouseState.Y >= buildArea.Top
+                    && mouseState.Y > buildArea.Top
                     && mouseState.Y < buildArea.Bottom)
                 {
                     inBuildArea = true;

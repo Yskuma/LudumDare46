@@ -50,8 +50,8 @@ namespace LudumDare46.Shared
 
         public Texture2D BulletExplosion { get; set; }
         public Texture2D EnemyExplosion { get; set; }
+        public TextureRegion2D TargetingComputer { get; set; }
 
-        
 
         private void Load()
         {
@@ -84,6 +84,7 @@ namespace LudumDare46.Shared
             AmmoExp = new TextureRegion2D(RoguelikeCity, 10 * 17, 18 * 17, 16, 16);
             AmmoFrag = new TextureRegion2D(RoguelikeCity, 11 * 17, 18 * 17, 16, 16);
             AmmoAP = new TextureRegion2D(RoguelikeCity, 9 * 17, 18 * 17, 16, 16);
+            TargetingComputer = new TextureRegion2D(RoguelikeCity, 25 * 17, 8 * 17, 16, 16);
             Remove = new TextureRegion2D(RoguelikeCity, 25 * 17, 5 * 17, 16, 16);
         }
 
