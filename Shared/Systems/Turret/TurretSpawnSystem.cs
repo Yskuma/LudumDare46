@@ -50,6 +50,20 @@ namespace LudumDare46.Shared.Systems.Turret
 
                 var e = CreateEntity();
 
+                foreach (var entity in ActiveEntities)
+                {
+                    var transform = _transformMapper.Get(entity);
+
+                    if (transform.Position.X > tempx - 1
+                        && transform.Position.X < tempx + 1
+                        && transform.Position.Y > tempy - 1
+                        && transform.Position.Y < tempy + 1)
+                    {
+                        DestroyEntity(entity);
+                    }
+
+                }
+
                 switch (turret.turretPart)
                 {
                     case TurretPart.Turret:
@@ -113,19 +127,7 @@ namespace LudumDare46.Shared.Systems.Turret
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.Empty:
-                        foreach (var entity in ActiveEntities)
-                        {
-                            var transform = _transformMapper.Get(entity);
-                            
-                                if (transform.Position.X > tempx - 1
-                                    && transform.Position.X < tempx + 1
-                                    && transform.Position.Y > tempy - 1
-                                    && transform.Position.Y < tempy + 1)
-                                {
-                                    DestroyEntity(entity);
-                                }
-                            
-                        }
+                        
 
                         break;
                 }

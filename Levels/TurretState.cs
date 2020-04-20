@@ -21,28 +21,11 @@ namespace LudumDare46.Levels
 
         public bool AddPart(Point location, TurretPart part)
         {
-            var grid = TurretStats.Where(t => t.x == location.X && t.y == location.Y);
+            var grid = TurretStats.Where(t => t.x == location.X && t.y == location.Y).ToList();
 
             if (grid.Any())
             {
-                var currentPart = grid.First().turretPart;
-
                 TurretStats.Remove(grid.First());
-
-                TurretStats.Add(new TurretStat
-                {
-                    x = location.X,
-                    y = location.Y,
-                    turretPart = part,
-                    hasAmmo = false,
-                    fireRate = 1,
-                    radius = 1,
-                    physicalDamage = 1,
-                    range = 1,
-                    armourPierce = 1,
-                    newPart = true
-                });
-                return true;
             }
 
             TurretStats.Add(new TurretStat
@@ -116,9 +99,9 @@ namespace LudumDare46.Levels
                 foreach (var loader in loaders)
                 {
                     loader.radius =
-                        loader.radius * 1.3f;
+                        loader.radius * 1.5f;
                     loader.armourPierce =
-                        loader.armourPierce * 0.75f;
+                        loader.armourPierce * 0.9f;
                     loader.hasAmmo = true;
                 }
             }
