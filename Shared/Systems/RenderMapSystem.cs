@@ -33,9 +33,9 @@ namespace LudumDare46.Shared.Systems
 
         public override void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: _viewportAdapter.GetScaleMatrix(), sortMode: SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            _mapRenderer.Draw();
+            _mapRenderer.Draw(_viewportAdapter.GetScaleMatrix());
 
             _spriteBatch.End();
         }
