@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 namespace LudumDare46.Shared
 {
@@ -28,7 +29,29 @@ namespace LudumDare46.Shared
             Hit3 = _contentManager.Load<SoundEffect>("Sounds/hit3");
             Hit4 = _contentManager.Load<SoundEffect>("Sounds/hit4");
             Hit5 = _contentManager.Load<SoundEffect>("Sounds/hit5");
+
+            FlowingRocks = _contentManager.Load<Song>("Music/Flowing Rocks");
+            MissionPlausible = _contentManager.Load<Song>("Music/Mission Plausible");
+            TimeDriving = _contentManager.Load<Song>("Music/Time Driving");
+
+            ChillStep1 = _contentManager.Load<Song>("Music/Chillstep_1");
+            ChillStep2 = _contentManager.Load<Song>("Music/Chillstep_2");
+
+            DirtyElectroHouse1 = _contentManager.Load<Song>("Music/DirtyElectroHouse_1");
+
         }
+
+        public Song DirtyElectroHouse1 { get; set; }
+
+        public Song ChillStep2 { get; set; }
+
+        public Song ChillStep1 { get; set; }
+
+        public Song TimeDriving { get; set; }
+
+        public Song MissionPlausible { get; set; }
+
+        public Song FlowingRocks { get; set; }
 
         public SoundEffect Hit5 { get; set; }
 

@@ -72,6 +72,42 @@
 /processor:TiledMapProcessor
 /build:Level01.tmx
 
+#begin Music/Chillstep_1.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Chillstep_1.wav
+
+#begin Music/Chillstep_2.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Chillstep_2.wav
+
+#begin Music/DirtyElectroHouse_1.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/DirtyElectroHouse_1.wav
+
+#begin Music/Flowing Rocks.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Flowing Rocks.ogg
+
+#begin Music/Mission Plausible.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Mission Plausible.ogg
+
+#begin Music/Time Driving.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Time Driving.ogg
+
 #begin roguelikeCity_tiles.tsx
 /importer:TiledMapTilesetImporter
 /processor:TiledMapTilesetProcessor

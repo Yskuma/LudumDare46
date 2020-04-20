@@ -4,6 +4,7 @@ using LudumDare46.Shared;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.ViewportAdapters;
 using MonoGame.Extended.Gui;
@@ -76,6 +77,8 @@ namespace LudumDare46
             
 
             base.Initialize();
+
+            MediaPlayer.Volume = 0.1f;
 
             _currentLevel = new LevelMainMenuFactory().Build(_graphics, _textureManager, _soundManager, _boxingViewportAdapter, Content);
         }

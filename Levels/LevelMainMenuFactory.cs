@@ -11,6 +11,7 @@ using LudumDare46.Shared.Systems.Gui;
 using LudumDare46.Shared.Systems.Turret;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Tiled;
@@ -52,6 +53,9 @@ namespace LudumDare46.Levels
                 World = world,
                 LevelState = levelState
             };
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(soundManager.FlowingRocks);
         
             return level;
         }
