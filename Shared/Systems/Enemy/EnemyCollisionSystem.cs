@@ -20,11 +20,13 @@ namespace LudumDare46.Shared.Systems
 
         private double TimeUntilNextSpawn = 0;
         private List<Rectangle> _stopAreas;
+        private LevelState _levelState;
 
-        public EnemyCollisionSystem(List<Rectangle> stopAreas) : base(
+        public EnemyCollisionSystem(List<Rectangle> stopAreas, LevelState levelState) : base(
             Aspect.All(typeof(EnemyComponent), typeof(Transform2), typeof(MovementComponent)))
         {
             _stopAreas = stopAreas;
+            _levelState = levelState;
         }
 
         public override void Initialize(IComponentMapperService mapperService)
@@ -48,7 +50,9 @@ namespace LudumDare46.Shared.Systems
                         transform.Position.Y > stopArea.Y &&
                         transform.Position.Y < stopArea.Y + stopArea.Height)
                     {
-                        movement.Speed = Vector2.Zero;
+                        //movement.Speed = Vector2.Zero;
+                        _levelState.BuildingHealth = _levelState.BuildingHealth - 1;
+                        DestroyEntity(entity);
                     }
                 }
 

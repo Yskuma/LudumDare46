@@ -63,12 +63,14 @@ namespace LudumDare46.Shared.Systems.Gui
                         {
                             new ProgressBar
                             {
+                                Name = "HealthBar",
                                 Progress = _levelState.BuildingHealth/ 100,
                                 Size = new Size(200, 50),
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 100, 0)
                             },
                             new Label(_levelState.BuildingHealth.ToString("n0"))
                             {
+                                Name = "HealthText",
                                 Position = new Point(_defaultViewportAdapter.ViewportWidth / 2 - 35, 0),
                                 Size = new Size(70, 50),
                                 HorizontalTextAlignment = HorizontalAlignment.Centre,
@@ -86,8 +88,9 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public void Update(GameTime gameTime)
         {
+            _guiSystem.ActiveScreen.FindControl<ProgressBar>("HealthBar").Progress = _levelState.BuildingHealth / 100;
+            _guiSystem.ActiveScreen.FindControl<Label>("HealthText").Content = _levelState.BuildingHealth.ToString("n0");
             _guiSystem.Update(gameTime);
-
         }
 
         public void Draw(GameTime gameTime)
