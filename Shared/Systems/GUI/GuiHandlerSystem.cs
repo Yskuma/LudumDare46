@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using LudumDare46.Shared.Enums;
+using LudumDare46.Shared.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,7 @@ using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using MonoGame.Extended.Gui;
 using MonoGame.Extended.Gui.Controls;
+using MonoGame.Extended.Input;
 using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.TextureAtlases;
 using MonoGame.Extended.ViewportAdapters;
@@ -30,14 +32,17 @@ namespace LudumDare46.Shared.Systems.Gui
 
         public Enums.TurretPart SelectedPart;
 
+        private TurretHelper _turretHelper;
+
         public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport, GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager)
+            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper)
         {
             _graphicsDeviceManager = graphics;
             _defaultViewportAdapter = viewport;
             _guiSpriteBatchRenderer = guiRenderer;
             _contentManager = contentManager;
             _textureManager = textureManager;
+            _turretHelper = turretHelper;
         }
 
         public void Initialize(World world)
@@ -225,6 +230,8 @@ namespace LudumDare46.Shared.Systems.Gui
         {
             _guiSystem.Update(gameTime);
 
+            var mouseState = MouseExtended.GetState();
+
             foreach (var buttonModel in buttonModels)
             {
                 var button = _guiSystem.ActiveScreen.FindControl<Button>(buttonModel.Name);
@@ -236,8 +243,29 @@ namespace LudumDare46.Shared.Systems.Gui
                 }
             }
 
-            
+            if (mouseState.WasButtonJustDown(MouseButton.Right))
+            {
+                SelectedPart = TurretPart.Empty;
+            }
 
+            if (mouseState.WasButtonJustDown(MouseButton.Left))
+            {
+                if (SelectedPart != TurretPart.Empty)
+                {
+                    PlacePartAtMouse(SelectedPart);
+                }
+            }
+        }
+
+        public void PlacePartAtMouse(TurretPart part)
+        {
+            var mouseState = MouseExtended.GetState();
+            var currentTile = new Point()
+            {
+                X = (int) Math.Round((float) mouseState.Position.X / 16),
+                Y = (int) Math.Round((float) mouseState.Position.Y / 16)
+            };
+            _turretHelper.AddPart(currentTile, SelectedPart);
         }
 
         public void Draw(GameTime gameTime)
