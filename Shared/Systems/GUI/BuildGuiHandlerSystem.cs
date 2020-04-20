@@ -20,7 +20,7 @@ using MonoGame.Extended.ViewportAdapters;
 
 namespace LudumDare46.Shared.Systems.Gui
 {
-    class GuiHandlerSystem : IUpdateSystem, IDrawSystem
+    class BuildGuiHandlerSystem : IUpdateSystem, IDrawSystem
     {
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
         private readonly ViewportAdapter _defaultViewportAdapter;
@@ -29,6 +29,7 @@ namespace LudumDare46.Shared.Systems.Gui
         private readonly TextureManager _textureManager;
         private GuiSystem _guiSystem;
         private LevelState _levelState;
+        private List<Rectangle> _buildAreas;
 
         private List<ButtonModel> buttonModels;
 
@@ -36,9 +37,10 @@ namespace LudumDare46.Shared.Systems.Gui
 
         private TurretState _turretState;
 
-        public GuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
+        public BuildGuiHandlerSystem(GraphicsDeviceManager graphics, ViewportAdapter viewport,
             GuiSpriteBatchRenderer guiRenderer,
-            ContentManager contentManager, TextureManager textureManager, TurretState turretState, LevelState levelState)
+            ContentManager contentManager, TextureManager textureManager, TurretHelper turretHelper,
+            LevelState levelState, List<Rectangle> buildAreas)
         {
             _graphicsDeviceManager = graphics;
             _defaultViewportAdapter = viewport;
@@ -47,6 +49,7 @@ namespace LudumDare46.Shared.Systems.Gui
             _textureManager = textureManager;
             _turretState = turretState;
             _levelState = levelState;
+            _buildAreas = buildAreas;
         }
 
         public void Initialize(World world)
@@ -164,7 +167,7 @@ namespace LudumDare46.Shared.Systems.Gui
                 });
             }
 
-            var Screen =
+            var screen =
                 new Screen
                 {
                     Content = new Canvas()
@@ -221,7 +224,7 @@ namespace LudumDare46.Shared.Systems.Gui
 
             _guiSystem = new GuiSystem(_defaultViewportAdapter, _guiSpriteBatchRenderer)
             {
-                ActiveScreen = Screen
+                ActiveScreen = screen
             };
         }
 
@@ -284,10 +287,29 @@ namespace LudumDare46.Shared.Systems.Gui
         public void PlacePartAtMouse(TurretPart part)
         {
             var mouseState = MouseExtended.GetState();
+
+            var inBuildArea = false;
+
+            foreach (var buildArea in _buildAreas)
+            {
+                if (mouseState.X >= buildArea.Left
+                    && mouseState.X < buildArea.Right
+                    && mouseState.Y >= buildArea.Top
+                    && mouseState.Y < buildArea.Bottom)
+                {
+                    inBuildArea = true;
+                }
+            }
+
+            if (!inBuildArea)
+            {
+                return;
+            }
+
             var currentTile = new Point()
             {
-                X = (int) Math.Round((float) mouseState.Position.X / 16),
-                Y = (int) Math.Round((float) mouseState.Position.Y / 16)
+                X = (int) Math.Round((float) (mouseState.Position.X - 8) / 16),
+                Y = (int) Math.Round((float) (mouseState.Position.Y - 8) / 16)
             };
             _turretState.AddPart(currentTile, SelectedPart);
         }

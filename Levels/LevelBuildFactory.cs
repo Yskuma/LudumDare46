@@ -44,6 +44,10 @@ namespace LudumDare46.Levels
                 .Select(r => new Rectangle((int)r.Position.X, (int)r.Position.Y, (int)r.Size.Width, (int)r.Size.Height))
                 .ToList();
 
+            var buildAreas = areaLayer.Objects.Where(r => r.Type == "BuildArea")
+                .Select(r => new Rectangle((int)r.Position.X, (int)r.Position.Y, (int)r.Size.Width, (int)r.Size.Height))
+                .ToList();
+
             worldBuilder
                 .AddSystem(new CleanupSystem(viewportAdapter))
                 .AddSystem(new MovementSystem())
@@ -51,7 +55,7 @@ namespace LudumDare46.Levels
                     map))
                 .AddSystem(new RenderSpriteSystem(graphicsDeviceManager.GraphicsDevice, viewportAdapter))
                 .AddSystem(new TurretSpawnSystem(textureManager, turretState))
-                .AddSystem(new GuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretState,levelState));
+                .AddSystem(new BuildGuiHandlerSystem(graphicsDeviceManager,viewportAdapter,guiSpriteBatchRenderer,contentManager,textureManager, turretHelper,state, buildAreas));
 
             var world = worldBuilder.Build();
 

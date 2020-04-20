@@ -26,7 +26,7 @@ namespace LudumDare46.Shared.Systems.Turret
         private Random _random;
 
         public TurretSpawnSystem(TextureManager textureManager, TurretState turretState) 
-            : base(Aspect.All(typeof(TurretComponent), typeof(Transform2), typeof(TurretPartComponent)))
+            : base(Aspect.All( typeof(Transform2), typeof(TurretPartComponent)))
         {
             _textureManager = textureManager;
             _turretState = turretState;
@@ -45,6 +45,8 @@ namespace LudumDare46.Shared.Systems.Turret
             foreach (var turret in newTurrets)
             {
                 turret.newPart = false;
+                turret.x = turret.x * 16 + 8;
+                turret.y = turret.y * 16 + 8;
 
                 var e = CreateEntity();
 
@@ -52,7 +54,8 @@ namespace LudumDare46.Shared.Systems.Turret
                 {
                     case TurretPart.Turret:
                         e.Attach(new Sprite(_textureManager.Turret));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x, turret.y, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new TurretPartComponent());
                         e.Attach(new TurretComponent(400, 1.0f / 2)
                         {
                             PhysicalDamage = 5
@@ -60,32 +63,32 @@ namespace LudumDare46.Shared.Systems.Turret
                         break;
                     case TurretPart.BarrelExtender:
                         e.Attach(new Sprite(_textureManager.BarrelExtender));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x , turret.y , 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.BeltFeed:
                         e.Attach(new Sprite(_textureManager.BeltFeed));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x , turret.y , 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.AutoLoader:
                         e.Attach(new Sprite(_textureManager.Loader));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x , turret.y , 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.APAmmo:
                         e.Attach(new Sprite(_textureManager.AmmoAP));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x, turret.y , 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.FragAmmo:
                         e.Attach(new Sprite(_textureManager.AmmoFrag));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x, turret.y, 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.ExplosiveAmmo:
                         e.Attach(new Sprite(_textureManager.AmmoExp));
-                        e.Attach(new Transform2(turret.x * 16, turret.y * 16, 0.0F, 1.0F, 1.0F));
+                        e.Attach(new Transform2(turret.x, turret.y, 0.0F, 1.0F, 1.0F));
                         e.Attach(new TurretPartComponent());
                         break;
                     case TurretPart.Empty:
@@ -93,10 +96,10 @@ namespace LudumDare46.Shared.Systems.Turret
                         {
                             var transform = _transformMapper.Get(entity);
                             
-                                if (transform.Position.X > turret.x * 16 - 1
-                                    && transform.Position.X < turret.x * 16 + 1
-                                    && transform.Position.Y > turret.y * 16 - 1
-                                    && transform.Position.Y < turret.y * 16 + 1)
+                                if (transform.Position.X > turret.x - 1
+                                    && transform.Position.X < turret.x + 1
+                                    && transform.Position.Y > turret.y - 1
+                                    && transform.Position.Y < turret.y + 1)
                                 {
                                     DestroyEntity(entity);
                                 }

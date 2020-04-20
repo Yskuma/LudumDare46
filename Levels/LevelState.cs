@@ -11,5 +11,7 @@ namespace LudumDare46.Shared.Components
 
         public int LevelNum {get; set; }
         public bool BuildDone { get; set; }
+
+        public float BuildingHealth { get; set; }
     }
 }
