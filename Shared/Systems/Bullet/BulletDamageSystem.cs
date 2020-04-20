@@ -60,6 +60,17 @@ namespace LudumDare46.Shared.Systems
                         var reduction = (1 - MathF.Max((enemy.Armour - bullet.ArmourPierce) / enemy.Armour, 0));
                         var damage = (bullet.PhysicalDamage) * reduction;
                         enemy.HP -= damage;
+
+                        var num = CreateEntity();
+                        num.Attach(new TextComponent()
+                        {
+                            Colour = Color.Red,
+                            Text = $"{damage:F1}"
+                        });
+                        num.Attach(new Transform2(new Vector2(enemyTransform.Position.X, enemyTransform.Position.Y),0.0f,Vector2.One));
+                        num.Attach(new MovementComponent(Vector2.UnitY * 40));
+                        num.Attach(new AutoRemoveComponent(1.5f));
+
                         Debug.WriteLine($"Damage an enemy for {damage} (Base={bullet.PhysicalDamage}, AP={bullet.ArmourPierce}, Armor={enemy.Armour}, Reduction={reduction}) leaving it on {enemy.HP} HP");
                     }
                 }
